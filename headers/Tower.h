@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL.h>
-#include <vector>
 
 #include "Building.h"
 #include "Damage.h"

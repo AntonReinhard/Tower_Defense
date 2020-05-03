@@ -1,38 +1,27 @@
 #pragma once
 #include "LTexture.h"
 #include "Button.h"
+#include "MainMenuTab.h"
 
 class Game;
 
-class MainMenu : ButtonObject, Renderable
+class MainMenu : public MainMenuTab, public ButtonObject
 {
 public:
 	explicit MainMenu(Game* game);
 
-	void render() override;
-
-	void set_enabled(bool enabled);
-
 	void on_button_press(int button_id, Button* button) override;
 
-private:
-	enum class STATE
+	enum MAIN_MENU_BUTTONS
 	{
-		MAIN_MENU,
-		SETTINGS_MENU,
-		LEVEL_SELECT,
+		PLAY,
+		QUIT,
+		SETTINGS,
 		STATS,
-		QUIT
-	} mState;
+		BACK
+	};
 
-	LTexture *mBackground_sprite;
+private:
 	LTexture *mTitle_sprite;
 	LTexture *mMain_menu_sprite;
-	
-	Button *mPlay_button;
-	Button *mQuit_button;
-	Button *mSettings_button;
-	Button *mStats_button;
-
-	Game* mGame;
 };

@@ -21,7 +21,7 @@ class Level;
 class Unit : public Entity, public Clickable
 {
 public:
-	explicit Unit(std::string unit_name, Level* level, LAYERS render_layer);
+	Unit(const std::string& unit_name, Level* level, LAYERS render_layer);
 	~Unit();
 
 	void render() override;

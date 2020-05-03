@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "LayerHandler.h"
 
-MainMenu::MainMenu(Game* game) : Renderable(OVERLAY)
+MainMenu::MainMenu(Game* game) : MainMenuTab(game)
 {
 	const auto sprite_section = "MainMenu/sprite";
 
@@ -12,103 +12,66 @@ MainMenu::MainMenu(Game* game) : Renderable(OVERLAY)
 	mTitle_sprite = gTextures->get_texture(gConfig_file->value(sprite_section, "title"));
 	mMain_menu_sprite = gTextures->get_texture(gConfig_file->value(sprite_section, "mainmenu"));
 
-	SDL_Rect dim;
-	dim.w = gConfig_file->value("button/play", "clip_width");
-	dim.h = gConfig_file->value("button/play", "clip_height");
-	dim.x = LOGICAL_SCREEN_WIDTH / 2 - dim.w;
-	dim.y = 300;
+	SDL_Rect dim {
+		LOGICAL_SCREEN_WIDTH / 2 - gConfig_file->value("button/play", "clip_width"),
+		300,
+		gConfig_file->value("button/play", "clip_width"),
+		gConfig_file->value("button/play", "clip_height")
+	};
 
-	mPlay_button = new Button("play", dim, this, OVERLAY, OVERLAY, PLAY);
+	mButtons.push_back(new Button("play", dim, this, OVERLAY, OVERLAY, PLAY));
 
 	dim.w = gConfig_file->value("button/quit", "clip_width");
 	dim.h = gConfig_file->value("button/quit", "clip_height");
 	dim.y = 500;
-	mQuit_button = new Button("quit", dim, this, OVERLAY, OVERLAY, QUIT);
+	mButtons.push_back(new Button("quit", dim, this, OVERLAY, OVERLAY, QUIT));
 
 	dim.w = gConfig_file->value("button/settings", "clip_width");
 	dim.h = gConfig_file->value("button/settings", "clip_height");
 	dim.y = 700;
-	mSettings_button = new Button("settings", dim, this, OVERLAY, OVERLAY, SETTINGS);
+	auto settings_button = new Button("settings", dim, this, OVERLAY, OVERLAY, SETTINGS);
+	mButtons.push_back(settings_button);
 
 	dim.w = gConfig_file->value("button/stats", "clip_width");
 	dim.h = gConfig_file->value("button/stats", "clip_height");
 	dim.y = 900;
-	mStats_button = new Button("stats", dim, this, OVERLAY, OVERLAY, STATS);
+	auto stats_button = new Button("stats", dim, this, OVERLAY, OVERLAY, STATS);
+	mButtons.push_back(stats_button);
 
 	this->set_enabled(true);
-
-	mGame = game;
-}
-
-void MainMenu::render()
-{
-	SDL_Rect dest;
-
-	dest.x = 0;
-	dest.y = 0;
-	dest.w = 1920;
-	dest.h = 1080;
-	
-	gLayer_handler->render_to_layer(mBackground_sprite, mRender_layer, nullptr, &dest);
-}
-
-void MainMenu::set_enabled(const bool enabled)
-{
-	mPlay_button->set_rendering_enabled(enabled);
-	mQuit_button->set_rendering_enabled(enabled);
-	mSettings_button->set_rendering_enabled(enabled);
-	mStats_button->set_rendering_enabled(enabled);
-
-	this->set_rendering_enabled(enabled);
-
-	if (enabled) {
-		mPlay_button->enable();
-		mQuit_button->enable();
-		mSettings_button->enable();
-		mStats_button->enable();
-	} else
-	{
-		mPlay_button->disable();
-		mQuit_button->disable();
-		mSettings_button->disable();
-		mStats_button->disable();
-	}
 }
 
 void MainMenu::on_button_press(int button_id, Button* button)
 {
-	switch(button_id)
+	switch (button_id)
 	{
-	case int(PLAY):
-		mState = STATE::LEVEL_SELECT;
-		this->set_enabled(false);
+		case int(PLAY) :
+			this->set_enabled(false);
 
-		mGame->load_level(1);
-		mGame->set_state(Game::STATE::PLAYING);
+			mGame->set_state(Game::STATE::LEVEL_SELECT);
+			mGame->get_level_select_menu()->set_enabled(true);
 
-		break;
+			break;
 
-	case int(QUIT):
-		mState = STATE::QUIT;
-		mGame->set_state(Game::STATE::EXITING);
-		break;
+			case int(QUIT) :
+				mGame->set_state(Game::STATE::EXITING);
+				break;
 
-	case int(SETTINGS):
-		mState = STATE::SETTINGS_MENU;
-		break;
+				case int(SETTINGS) :
+					break;
 
-	case int(STATS):
-		mState = STATE::STATS;
-		break;
+					case int(STATS) :
+						break;
 
-	case int(BACK) :
-		this->set_enabled(true);
+						case int(BACK) :
+							this->set_enabled(true);
 
-		mState = STATE::MAIN_MENU;
-		break;
+							break;
 
-	default:
-		printf("This button doesn't exist?!\n\r");
-		break;
+						default:
+							printf("This button doesn't exist?!\n\r");
+							break;
 	}
 }
+
+

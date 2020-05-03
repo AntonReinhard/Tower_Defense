@@ -50,7 +50,7 @@ struct TableStruct_map_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -64,6 +64,12 @@ extern mapDefaultTypeInternal _map_default_instance_;
 class map_Layer;
 class map_LayerDefaultTypeInternal;
 extern map_LayerDefaultTypeInternal _map_Layer_default_instance_;
+class map_Monsterpath;
+class map_MonsterpathDefaultTypeInternal;
+extern map_MonsterpathDefaultTypeInternal _map_Monsterpath_default_instance_;
+class map_Monsterpath_Coordinate;
+class map_Monsterpath_CoordinateDefaultTypeInternal;
+extern map_Monsterpath_CoordinateDefaultTypeInternal _map_Monsterpath_Coordinate_default_instance_;
 class map_TileMapEntry_DoNotUse;
 class map_TileMapEntry_DoNotUseDefaultTypeInternal;
 extern map_TileMapEntry_DoNotUseDefaultTypeInternal _map_TileMapEntry_DoNotUse_default_instance_;
@@ -71,6 +77,8 @@ extern map_TileMapEntry_DoNotUseDefaultTypeInternal _map_TileMapEntry_DoNotUse_d
 PROTOBUF_NAMESPACE_OPEN
 template<> ::towerdefense::map* Arena::CreateMaybeMessage<::towerdefense::map>(Arena*);
 template<> ::towerdefense::map_Layer* Arena::CreateMaybeMessage<::towerdefense::map_Layer>(Arena*);
+template<> ::towerdefense::map_Monsterpath* Arena::CreateMaybeMessage<::towerdefense::map_Monsterpath>(Arena*);
+template<> ::towerdefense::map_Monsterpath_Coordinate* Arena::CreateMaybeMessage<::towerdefense::map_Monsterpath_Coordinate>(Arena*);
 template<> ::towerdefense::map_TileMapEntry_DoNotUse* Arena::CreateMaybeMessage<::towerdefense::map_TileMapEntry_DoNotUse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace towerdefense {
@@ -219,6 +227,284 @@ class map_Layer :
 };
 // -------------------------------------------------------------------
 
+class map_Monsterpath_Coordinate :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:towerdefense.map.Monsterpath.Coordinate) */ {
+ public:
+  map_Monsterpath_Coordinate();
+  virtual ~map_Monsterpath_Coordinate();
+
+  map_Monsterpath_Coordinate(const map_Monsterpath_Coordinate& from);
+  map_Monsterpath_Coordinate(map_Monsterpath_Coordinate&& from) noexcept
+    : map_Monsterpath_Coordinate() {
+    *this = ::std::move(from);
+  }
+
+  inline map_Monsterpath_Coordinate& operator=(const map_Monsterpath_Coordinate& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline map_Monsterpath_Coordinate& operator=(map_Monsterpath_Coordinate&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const map_Monsterpath_Coordinate& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const map_Monsterpath_Coordinate* internal_default_instance() {
+    return reinterpret_cast<const map_Monsterpath_Coordinate*>(
+               &_map_Monsterpath_Coordinate_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(map_Monsterpath_Coordinate& a, map_Monsterpath_Coordinate& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(map_Monsterpath_Coordinate* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline map_Monsterpath_Coordinate* New() const final {
+    return CreateMaybeMessage<map_Monsterpath_Coordinate>(nullptr);
+  }
+
+  map_Monsterpath_Coordinate* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<map_Monsterpath_Coordinate>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const map_Monsterpath_Coordinate& from);
+  void MergeFrom(const map_Monsterpath_Coordinate& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(map_Monsterpath_Coordinate* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "towerdefense.map.Monsterpath.Coordinate";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_map_2eproto);
+    return ::descriptor_table_map_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kXFieldNumber = 1,
+    kYFieldNumber = 2,
+  };
+  // int32 x = 1;
+  void clear_x();
+  ::PROTOBUF_NAMESPACE_ID::int32 x() const;
+  void set_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_x() const;
+  void _internal_set_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 y = 2;
+  void clear_y();
+  ::PROTOBUF_NAMESPACE_ID::int32 y() const;
+  void set_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_y() const;
+  void _internal_set_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:towerdefense.map.Monsterpath.Coordinate)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::int32 x_;
+  ::PROTOBUF_NAMESPACE_ID::int32 y_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_map_2eproto;
+};
+// -------------------------------------------------------------------
+
+class map_Monsterpath :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:towerdefense.map.Monsterpath) */ {
+ public:
+  map_Monsterpath();
+  virtual ~map_Monsterpath();
+
+  map_Monsterpath(const map_Monsterpath& from);
+  map_Monsterpath(map_Monsterpath&& from) noexcept
+    : map_Monsterpath() {
+    *this = ::std::move(from);
+  }
+
+  inline map_Monsterpath& operator=(const map_Monsterpath& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline map_Monsterpath& operator=(map_Monsterpath&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const map_Monsterpath& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const map_Monsterpath* internal_default_instance() {
+    return reinterpret_cast<const map_Monsterpath*>(
+               &_map_Monsterpath_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(map_Monsterpath& a, map_Monsterpath& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(map_Monsterpath* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline map_Monsterpath* New() const final {
+    return CreateMaybeMessage<map_Monsterpath>(nullptr);
+  }
+
+  map_Monsterpath* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<map_Monsterpath>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const map_Monsterpath& from);
+  void MergeFrom(const map_Monsterpath& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(map_Monsterpath* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "towerdefense.map.Monsterpath";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_map_2eproto);
+    return ::descriptor_table_map_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef map_Monsterpath_Coordinate Coordinate;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCheckpointsFieldNumber = 1,
+  };
+  // repeated .towerdefense.map.Monsterpath.Coordinate checkpoints = 1;
+  int checkpoints_size() const;
+  private:
+  int _internal_checkpoints_size() const;
+  public:
+  void clear_checkpoints();
+  ::towerdefense::map_Monsterpath_Coordinate* mutable_checkpoints(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath_Coordinate >*
+      mutable_checkpoints();
+  private:
+  const ::towerdefense::map_Monsterpath_Coordinate& _internal_checkpoints(int index) const;
+  ::towerdefense::map_Monsterpath_Coordinate* _internal_add_checkpoints();
+  public:
+  const ::towerdefense::map_Monsterpath_Coordinate& checkpoints(int index) const;
+  ::towerdefense::map_Monsterpath_Coordinate* add_checkpoints();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath_Coordinate >&
+      checkpoints() const;
+
+  // @@protoc_insertion_point(class_scope:towerdefense.map.Monsterpath)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath_Coordinate > checkpoints_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_map_2eproto;
+};
+// -------------------------------------------------------------------
+
 class map_TileMapEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<map_TileMapEntry_DoNotUse, 
     ::PROTOBUF_NAMESPACE_ID::uint32, std::string,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
@@ -243,7 +529,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_map_2eproto);
-    return ::descriptor_table_map_2eproto.file_level_metadata[1];
+    return ::descriptor_table_map_2eproto.file_level_metadata[3];
   }
 
   public:
@@ -293,7 +579,7 @@ class map :
                &_map_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(map& a, map& b) {
     a.Swap(&b);
@@ -355,12 +641,14 @@ class map :
   // nested types ----------------------------------------------------
 
   typedef map_Layer Layer;
+  typedef map_Monsterpath Monsterpath;
 
   // accessors -------------------------------------------------------
 
   enum : int {
     kLayersFieldNumber = 1,
     kTileMapFieldNumber = 3,
+    kPathsFieldNumber = 6,
     kResourcesFieldNumber = 2,
     kWidthFieldNumber = 4,
     kHeightFieldNumber = 5,
@@ -399,6 +687,24 @@ class map :
       tile_map() const;
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, std::string >*
       mutable_tile_map();
+
+  // repeated .towerdefense.map.Monsterpath paths = 6;
+  int paths_size() const;
+  private:
+  int _internal_paths_size() const;
+  public:
+  void clear_paths();
+  ::towerdefense::map_Monsterpath* mutable_paths(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath >*
+      mutable_paths();
+  private:
+  const ::towerdefense::map_Monsterpath& _internal_paths(int index) const;
+  ::towerdefense::map_Monsterpath* _internal_add_paths();
+  public:
+  const ::towerdefense::map_Monsterpath& paths(int index) const;
+  ::towerdefense::map_Monsterpath* add_paths();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath >&
+      paths() const;
 
   // .towerdefense.map.Layer resources = 2;
   bool has_resources() const;
@@ -445,6 +751,7 @@ class map :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       0 > tile_map_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath > paths_;
   ::towerdefense::map_Layer* resources_;
   ::PROTOBUF_NAMESPACE_ID::uint32 width_;
   ::PROTOBUF_NAMESPACE_ID::uint32 height_;
@@ -507,6 +814,93 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >
 map_Layer::mutable_tiles() {
   // @@protoc_insertion_point(field_mutable_list:towerdefense.map.Layer.tiles)
   return _internal_mutable_tiles();
+}
+
+// -------------------------------------------------------------------
+
+// map_Monsterpath_Coordinate
+
+// int32 x = 1;
+inline void map_Monsterpath_Coordinate::clear_x() {
+  x_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 map_Monsterpath_Coordinate::_internal_x() const {
+  return x_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 map_Monsterpath_Coordinate::x() const {
+  // @@protoc_insertion_point(field_get:towerdefense.map.Monsterpath.Coordinate.x)
+  return _internal_x();
+}
+inline void map_Monsterpath_Coordinate::_internal_set_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  x_ = value;
+}
+inline void map_Monsterpath_Coordinate::set_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_x(value);
+  // @@protoc_insertion_point(field_set:towerdefense.map.Monsterpath.Coordinate.x)
+}
+
+// int32 y = 2;
+inline void map_Monsterpath_Coordinate::clear_y() {
+  y_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 map_Monsterpath_Coordinate::_internal_y() const {
+  return y_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 map_Monsterpath_Coordinate::y() const {
+  // @@protoc_insertion_point(field_get:towerdefense.map.Monsterpath.Coordinate.y)
+  return _internal_y();
+}
+inline void map_Monsterpath_Coordinate::_internal_set_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  y_ = value;
+}
+inline void map_Monsterpath_Coordinate::set_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_y(value);
+  // @@protoc_insertion_point(field_set:towerdefense.map.Monsterpath.Coordinate.y)
+}
+
+// -------------------------------------------------------------------
+
+// map_Monsterpath
+
+// repeated .towerdefense.map.Monsterpath.Coordinate checkpoints = 1;
+inline int map_Monsterpath::_internal_checkpoints_size() const {
+  return checkpoints_.size();
+}
+inline int map_Monsterpath::checkpoints_size() const {
+  return _internal_checkpoints_size();
+}
+inline void map_Monsterpath::clear_checkpoints() {
+  checkpoints_.Clear();
+}
+inline ::towerdefense::map_Monsterpath_Coordinate* map_Monsterpath::mutable_checkpoints(int index) {
+  // @@protoc_insertion_point(field_mutable:towerdefense.map.Monsterpath.checkpoints)
+  return checkpoints_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath_Coordinate >*
+map_Monsterpath::mutable_checkpoints() {
+  // @@protoc_insertion_point(field_mutable_list:towerdefense.map.Monsterpath.checkpoints)
+  return &checkpoints_;
+}
+inline const ::towerdefense::map_Monsterpath_Coordinate& map_Monsterpath::_internal_checkpoints(int index) const {
+  return checkpoints_.Get(index);
+}
+inline const ::towerdefense::map_Monsterpath_Coordinate& map_Monsterpath::checkpoints(int index) const {
+  // @@protoc_insertion_point(field_get:towerdefense.map.Monsterpath.checkpoints)
+  return _internal_checkpoints(index);
+}
+inline ::towerdefense::map_Monsterpath_Coordinate* map_Monsterpath::_internal_add_checkpoints() {
+  return checkpoints_.Add();
+}
+inline ::towerdefense::map_Monsterpath_Coordinate* map_Monsterpath::add_checkpoints() {
+  // @@protoc_insertion_point(field_add:towerdefense.map.Monsterpath.checkpoints)
+  return _internal_add_checkpoints();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath_Coordinate >&
+map_Monsterpath::checkpoints() const {
+  // @@protoc_insertion_point(field_list:towerdefense.map.Monsterpath.checkpoints)
+  return checkpoints_;
 }
 
 // -------------------------------------------------------------------
@@ -683,9 +1077,52 @@ inline void map::set_height(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:towerdefense.map.height)
 }
 
+// repeated .towerdefense.map.Monsterpath paths = 6;
+inline int map::_internal_paths_size() const {
+  return paths_.size();
+}
+inline int map::paths_size() const {
+  return _internal_paths_size();
+}
+inline void map::clear_paths() {
+  paths_.Clear();
+}
+inline ::towerdefense::map_Monsterpath* map::mutable_paths(int index) {
+  // @@protoc_insertion_point(field_mutable:towerdefense.map.paths)
+  return paths_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath >*
+map::mutable_paths() {
+  // @@protoc_insertion_point(field_mutable_list:towerdefense.map.paths)
+  return &paths_;
+}
+inline const ::towerdefense::map_Monsterpath& map::_internal_paths(int index) const {
+  return paths_.Get(index);
+}
+inline const ::towerdefense::map_Monsterpath& map::paths(int index) const {
+  // @@protoc_insertion_point(field_get:towerdefense.map.paths)
+  return _internal_paths(index);
+}
+inline ::towerdefense::map_Monsterpath* map::_internal_add_paths() {
+  return paths_.Add();
+}
+inline ::towerdefense::map_Monsterpath* map::add_paths() {
+  // @@protoc_insertion_point(field_add:towerdefense.map.paths)
+  return _internal_add_paths();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::towerdefense::map_Monsterpath >&
+map::paths() const {
+  // @@protoc_insertion_point(field_list:towerdefense.map.paths)
+  return paths_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

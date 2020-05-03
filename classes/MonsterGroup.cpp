@@ -14,6 +14,7 @@ MonsterGroup::MonsterGroup(const std::string& wave_number, const std::string& mo
 
 	mMonster_name.assign(gConfig_file->value(section, "monstername"));
 	mDelay_ticks_between_monsters = gConfig_file->value(section, "delay_ticks");
+	mDelay_ticks_between_monsters *= *gFrame_rate;
 	if (mDelay_ticks_between_monsters <= 0) mDelay_ticks_between_monsters = 1;
 	mMax_monster_count = gConfig_file->value(section, "monster_count");
 	mWay = gConfig_file->value(section, "way");

@@ -25,7 +25,7 @@ std::shared_ptr<Window> IndustrialBuilding::create_window()
 
 	//add production text in the building window
 	const SDL_Color text_color = { 0,0,0,0 };
-	SDL_Rect dest{ 0, 0, mBuilding_window->get_dim().x + 20, mBuilding_window->get_dim().y + 30 };
+	SDL_Rect dest{ 0, 0, mBuilding_window->get_dim().x + 200, mBuilding_window->get_dim().y + 40 };
 	auto const headline = new Text("        Production", dest, WINDOWCONTENT, text_color, false);
 	mBuilding_window->add_text_to_window(headline);
 	mProduction_values = new Text * [RESOURCES_TOTAL];

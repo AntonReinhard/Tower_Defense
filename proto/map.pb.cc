@@ -15,12 +15,22 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_map_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_Layer_map_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_map_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_map_Monsterpath_map_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_map_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_Monsterpath_Coordinate_map_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_map_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_TileMapEntry_DoNotUse_map_2eproto;
 namespace towerdefense {
 class map_LayerDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<map_Layer> _instance;
 } _map_Layer_default_instance_;
+class map_Monsterpath_CoordinateDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<map_Monsterpath_Coordinate> _instance;
+} _map_Monsterpath_Coordinate_default_instance_;
+class map_MonsterpathDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<map_Monsterpath> _instance;
+} _map_Monsterpath_default_instance_;
 class map_TileMapEntry_DoNotUseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<map_TileMapEntry_DoNotUse> _instance;
@@ -41,10 +51,11 @@ static void InitDefaultsscc_info_map_map_2eproto() {
   ::towerdefense::map::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_map_map_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_map_map_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_map_map_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_map_map_2eproto}, {
       &scc_info_map_Layer_map_2eproto.base,
-      &scc_info_map_TileMapEntry_DoNotUse_map_2eproto.base,}};
+      &scc_info_map_TileMapEntry_DoNotUse_map_2eproto.base,
+      &scc_info_map_Monsterpath_map_2eproto.base,}};
 
 static void InitDefaultsscc_info_map_Layer_map_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -60,6 +71,35 @@ static void InitDefaultsscc_info_map_Layer_map_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_Layer_map_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_map_Layer_map_2eproto}, {}};
 
+static void InitDefaultsscc_info_map_Monsterpath_map_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::towerdefense::_map_Monsterpath_default_instance_;
+    new (ptr) ::towerdefense::map_Monsterpath();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::towerdefense::map_Monsterpath::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_map_Monsterpath_map_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_map_Monsterpath_map_2eproto}, {
+      &scc_info_map_Monsterpath_Coordinate_map_2eproto.base,}};
+
+static void InitDefaultsscc_info_map_Monsterpath_Coordinate_map_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::towerdefense::_map_Monsterpath_Coordinate_default_instance_;
+    new (ptr) ::towerdefense::map_Monsterpath_Coordinate();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::towerdefense::map_Monsterpath_Coordinate::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_Monsterpath_Coordinate_map_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_map_Monsterpath_Coordinate_map_2eproto}, {}};
+
 static void InitDefaultsscc_info_map_TileMapEntry_DoNotUse_map_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -73,7 +113,7 @@ static void InitDefaultsscc_info_map_TileMapEntry_DoNotUse_map_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_map_TileMapEntry_DoNotUse_map_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_map_TileMapEntry_DoNotUse_map_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_map_2eproto[3];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_map_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_map_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_map_2eproto = nullptr;
 
@@ -84,6 +124,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_map_2eproto::offsets[] PROTOBU
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::towerdefense::map_Layer, tiles_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map_Monsterpath_Coordinate, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map_Monsterpath_Coordinate, x_),
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map_Monsterpath_Coordinate, y_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map_Monsterpath, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map_Monsterpath, checkpoints_),
   PROTOBUF_FIELD_OFFSET(::towerdefense::map_TileMapEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::towerdefense::map_TileMapEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -103,42 +156,53 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_map_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::towerdefense::map, tile_map_),
   PROTOBUF_FIELD_OFFSET(::towerdefense::map, width_),
   PROTOBUF_FIELD_OFFSET(::towerdefense::map, height_),
+  PROTOBUF_FIELD_OFFSET(::towerdefense::map, paths_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::towerdefense::map_Layer)},
-  { 6, 13, sizeof(::towerdefense::map_TileMapEntry_DoNotUse)},
-  { 15, -1, sizeof(::towerdefense::map)},
+  { 6, -1, sizeof(::towerdefense::map_Monsterpath_Coordinate)},
+  { 13, -1, sizeof(::towerdefense::map_Monsterpath)},
+  { 19, 26, sizeof(::towerdefense::map_TileMapEntry_DoNotUse)},
+  { 28, -1, sizeof(::towerdefense::map)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::towerdefense::_map_Layer_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::towerdefense::_map_Monsterpath_Coordinate_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::towerdefense::_map_Monsterpath_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::towerdefense::_map_TileMapEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::towerdefense::_map_default_instance_),
 };
 
 const char descriptor_table_protodef_map_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\tmap.proto\022\014towerdefense\"\363\001\n\003map\022\'\n\006lay"
+  "\n\tmap.proto\022\014towerdefense\"\223\003\n\003map\022\'\n\006lay"
   "ers\030\001 \003(\0132\027.towerdefense.map.Layer\022*\n\tre"
   "sources\030\002 \001(\0132\027.towerdefense.map.Layer\0220"
   "\n\010tile_map\030\003 \003(\0132\036.towerdefense.map.Tile"
-  "MapEntry\022\r\n\005width\030\004 \001(\r\022\016\n\006height\030\005 \001(\r\032"
-  "\026\n\005Layer\022\r\n\005tiles\030\001 \003(\r\032.\n\014TileMapEntry\022"
+  "MapEntry\022\r\n\005width\030\004 \001(\r\022\016\n\006height\030\005 \001(\r\022"
+  ",\n\005paths\030\006 \003(\0132\035.towerdefense.map.Monste"
+  "rpath\032\026\n\005Layer\022\r\n\005tiles\030\001 \003(\r\032p\n\013Monster"
+  "path\022=\n\013checkpoints\030\001 \003(\0132(.towerdefense"
+  ".map.Monsterpath.Coordinate\032\"\n\nCoordinat"
+  "e\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\032.\n\014TileMapEntry\022"
   "\013\n\003key\030\001 \001(\r\022\r\n\005value\030\002 \001(\t:\0028\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_map_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_map_2eproto_sccs[3] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_map_2eproto_sccs[5] = {
   &scc_info_map_map_2eproto.base,
   &scc_info_map_Layer_map_2eproto.base,
+  &scc_info_map_Monsterpath_map_2eproto.base,
+  &scc_info_map_Monsterpath_Coordinate_map_2eproto.base,
   &scc_info_map_TileMapEntry_DoNotUse_map_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_map_2eproto_once;
 static bool descriptor_table_map_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_map_2eproto = {
-  &descriptor_table_map_2eproto_initialized, descriptor_table_protodef_map_2eproto, "map.proto", 279,
-  &descriptor_table_map_2eproto_once, descriptor_table_map_2eproto_sccs, descriptor_table_map_2eproto_deps, 3, 0,
+  &descriptor_table_map_2eproto_initialized, descriptor_table_protodef_map_2eproto, "map.proto", 439,
+  &descriptor_table_map_2eproto_once, descriptor_table_map_2eproto_sccs, descriptor_table_map_2eproto_deps, 5, 0,
   schemas, file_default_instances, TableStruct_map_2eproto::offsets,
-  file_level_metadata_map_2eproto, 3, file_level_enum_descriptors_map_2eproto, file_level_service_descriptors_map_2eproto,
+  file_level_metadata_map_2eproto, 5, file_level_enum_descriptors_map_2eproto, file_level_service_descriptors_map_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -344,6 +408,413 @@ void map_Layer::InternalSwap(map_Layer* other) {
 
 // ===================================================================
 
+void map_Monsterpath_Coordinate::InitAsDefaultInstance() {
+}
+class map_Monsterpath_Coordinate::_Internal {
+ public:
+};
+
+map_Monsterpath_Coordinate::map_Monsterpath_Coordinate()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:towerdefense.map.Monsterpath.Coordinate)
+}
+map_Monsterpath_Coordinate::map_Monsterpath_Coordinate(const map_Monsterpath_Coordinate& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&x_, &from.x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&y_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(y_));
+  // @@protoc_insertion_point(copy_constructor:towerdefense.map.Monsterpath.Coordinate)
+}
+
+void map_Monsterpath_Coordinate::SharedCtor() {
+  ::memset(&x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&y_) -
+      reinterpret_cast<char*>(&x_)) + sizeof(y_));
+}
+
+map_Monsterpath_Coordinate::~map_Monsterpath_Coordinate() {
+  // @@protoc_insertion_point(destructor:towerdefense.map.Monsterpath.Coordinate)
+  SharedDtor();
+}
+
+void map_Monsterpath_Coordinate::SharedDtor() {
+}
+
+void map_Monsterpath_Coordinate::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const map_Monsterpath_Coordinate& map_Monsterpath_Coordinate::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_map_Monsterpath_Coordinate_map_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void map_Monsterpath_Coordinate::Clear() {
+// @@protoc_insertion_point(message_clear_start:towerdefense.map.Monsterpath.Coordinate)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&y_) -
+      reinterpret_cast<char*>(&x_)) + sizeof(y_));
+  _internal_metadata_.Clear();
+}
+
+const char* map_Monsterpath_Coordinate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 x = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          x_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 y = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          y_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* map_Monsterpath_Coordinate::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:towerdefense.map.Monsterpath.Coordinate)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 x = 1;
+  if (this->x() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_x(), target);
+  }
+
+  // int32 y = 2;
+  if (this->y() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_y(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:towerdefense.map.Monsterpath.Coordinate)
+  return target;
+}
+
+size_t map_Monsterpath_Coordinate::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:towerdefense.map.Monsterpath.Coordinate)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 x = 1;
+  if (this->x() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_x());
+  }
+
+  // int32 y = 2;
+  if (this->y() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_y());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void map_Monsterpath_Coordinate::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:towerdefense.map.Monsterpath.Coordinate)
+  GOOGLE_DCHECK_NE(&from, this);
+  const map_Monsterpath_Coordinate* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<map_Monsterpath_Coordinate>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:towerdefense.map.Monsterpath.Coordinate)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:towerdefense.map.Monsterpath.Coordinate)
+    MergeFrom(*source);
+  }
+}
+
+void map_Monsterpath_Coordinate::MergeFrom(const map_Monsterpath_Coordinate& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:towerdefense.map.Monsterpath.Coordinate)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.x() != 0) {
+    _internal_set_x(from._internal_x());
+  }
+  if (from.y() != 0) {
+    _internal_set_y(from._internal_y());
+  }
+}
+
+void map_Monsterpath_Coordinate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:towerdefense.map.Monsterpath.Coordinate)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void map_Monsterpath_Coordinate::CopyFrom(const map_Monsterpath_Coordinate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:towerdefense.map.Monsterpath.Coordinate)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool map_Monsterpath_Coordinate::IsInitialized() const {
+  return true;
+}
+
+void map_Monsterpath_Coordinate::InternalSwap(map_Monsterpath_Coordinate* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(x_, other->x_);
+  swap(y_, other->y_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata map_Monsterpath_Coordinate::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void map_Monsterpath::InitAsDefaultInstance() {
+}
+class map_Monsterpath::_Internal {
+ public:
+};
+
+map_Monsterpath::map_Monsterpath()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:towerdefense.map.Monsterpath)
+}
+map_Monsterpath::map_Monsterpath(const map_Monsterpath& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      checkpoints_(from.checkpoints_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:towerdefense.map.Monsterpath)
+}
+
+void map_Monsterpath::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_map_Monsterpath_map_2eproto.base);
+}
+
+map_Monsterpath::~map_Monsterpath() {
+  // @@protoc_insertion_point(destructor:towerdefense.map.Monsterpath)
+  SharedDtor();
+}
+
+void map_Monsterpath::SharedDtor() {
+}
+
+void map_Monsterpath::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const map_Monsterpath& map_Monsterpath::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_map_Monsterpath_map_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void map_Monsterpath::Clear() {
+// @@protoc_insertion_point(message_clear_start:towerdefense.map.Monsterpath)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  checkpoints_.Clear();
+  _internal_metadata_.Clear();
+}
+
+const char* map_Monsterpath::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .towerdefense.map.Monsterpath.Coordinate checkpoints = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_checkpoints(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* map_Monsterpath::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:towerdefense.map.Monsterpath)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .towerdefense.map.Monsterpath.Coordinate checkpoints = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_checkpoints_size()); i < n; i++) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(1, this->_internal_checkpoints(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:towerdefense.map.Monsterpath)
+  return target;
+}
+
+size_t map_Monsterpath::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:towerdefense.map.Monsterpath)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .towerdefense.map.Monsterpath.Coordinate checkpoints = 1;
+  total_size += 1UL * this->_internal_checkpoints_size();
+  for (const auto& msg : this->checkpoints_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void map_Monsterpath::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:towerdefense.map.Monsterpath)
+  GOOGLE_DCHECK_NE(&from, this);
+  const map_Monsterpath* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<map_Monsterpath>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:towerdefense.map.Monsterpath)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:towerdefense.map.Monsterpath)
+    MergeFrom(*source);
+  }
+}
+
+void map_Monsterpath::MergeFrom(const map_Monsterpath& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:towerdefense.map.Monsterpath)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  checkpoints_.MergeFrom(from.checkpoints_);
+}
+
+void map_Monsterpath::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:towerdefense.map.Monsterpath)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void map_Monsterpath::CopyFrom(const map_Monsterpath& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:towerdefense.map.Monsterpath)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool map_Monsterpath::IsInitialized() const {
+  return true;
+}
+
+void map_Monsterpath::InternalSwap(map_Monsterpath* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  checkpoints_.InternalSwap(&other->checkpoints_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata map_Monsterpath::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 map_TileMapEntry_DoNotUse::map_TileMapEntry_DoNotUse() {}
 map_TileMapEntry_DoNotUse::map_TileMapEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
     : SuperType(arena) {}
@@ -382,7 +853,8 @@ map::map()
 map::map(const map& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr),
-      layers_(from.layers_) {
+      layers_(from.layers_),
+      paths_(from.paths_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   tile_map_.MergeFrom(from.tile_map_);
   if (from._internal_has_resources()) {
@@ -429,6 +901,7 @@ void map::Clear() {
 
   layers_.Clear();
   tile_map_.Clear();
+  paths_.Clear();
   if (GetArenaNoVirtual() == nullptr && resources_ != nullptr) {
     delete resources_;
   }
@@ -489,6 +962,18 @@ const char* map::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
           height_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .towerdefense.map.Monsterpath paths = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_paths(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -586,6 +1071,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_height(), target);
   }
 
+  // repeated .towerdefense.map.Monsterpath paths = 6;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_paths_size()); i < n; i++) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(6, this->_internal_paths(i), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -616,6 +1109,13 @@ size_t map::ByteSizeLong() const {
       it = this->_internal_tile_map().begin();
       it != this->_internal_tile_map().end(); ++it) {
     total_size += map_TileMapEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  // repeated .towerdefense.map.Monsterpath paths = 6;
+  total_size += 1UL * this->_internal_paths_size();
+  for (const auto& msg : this->paths_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // .towerdefense.map.Layer resources = 2;
@@ -672,6 +1172,7 @@ void map::MergeFrom(const map& from) {
 
   layers_.MergeFrom(from.layers_);
   tile_map_.MergeFrom(from.tile_map_);
+  paths_.MergeFrom(from.paths_);
   if (from.has_resources()) {
     _internal_mutable_resources()->::towerdefense::map_Layer::MergeFrom(from._internal_resources());
   }
@@ -706,6 +1207,7 @@ void map::InternalSwap(map* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   layers_.InternalSwap(&other->layers_);
   tile_map_.Swap(&other->tile_map_);
+  paths_.InternalSwap(&other->paths_);
   swap(resources_, other->resources_);
   swap(width_, other->width_);
   swap(height_, other->height_);
@@ -721,6 +1223,12 @@ void map::InternalSwap(map* other) {
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::towerdefense::map_Layer* Arena::CreateMaybeMessage< ::towerdefense::map_Layer >(Arena* arena) {
   return Arena::CreateInternal< ::towerdefense::map_Layer >(arena);
+}
+template<> PROTOBUF_NOINLINE ::towerdefense::map_Monsterpath_Coordinate* Arena::CreateMaybeMessage< ::towerdefense::map_Monsterpath_Coordinate >(Arena* arena) {
+  return Arena::CreateInternal< ::towerdefense::map_Monsterpath_Coordinate >(arena);
+}
+template<> PROTOBUF_NOINLINE ::towerdefense::map_Monsterpath* Arena::CreateMaybeMessage< ::towerdefense::map_Monsterpath >(Arena* arena) {
+  return Arena::CreateInternal< ::towerdefense::map_Monsterpath >(arena);
 }
 template<> PROTOBUF_NOINLINE ::towerdefense::map_TileMapEntry_DoNotUse* Arena::CreateMaybeMessage< ::towerdefense::map_TileMapEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateInternal< ::towerdefense::map_TileMapEntry_DoNotUse >(arena);

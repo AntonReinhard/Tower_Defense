@@ -21,6 +21,8 @@ public:
 	void render() override;
 
 	TILETYPES get_resource_at_tile(const int x, const int y) const;
+
+	towerdefense::map::Monsterpath get_monster_path(int index) const;
 	
 protected:
 	void update_map_texture() const;

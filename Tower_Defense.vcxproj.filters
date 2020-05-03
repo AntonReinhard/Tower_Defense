@@ -94,6 +94,12 @@
     <Filter Include="protobuf">
       <UniqueIdentifier>{359151b3-1e89-43c9-819a-e66dd3b3524d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Menus\Main Menu">
+      <UniqueIdentifier>{8bc09bc2-5e5d-4997-8c0c-422248234424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menus\Main Menu">
+      <UniqueIdentifier>{e55d88d4-47b8-4276-9476-45f6492adc75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="classes\Game.cpp">
@@ -261,11 +267,17 @@
     <ClCompile Include="classes\Vector.cpp">
       <Filter>Source Files\Data structures</Filter>
     </ClCompile>
-    <ClCompile Include="classes\MainMenu.cpp">
-      <Filter>Source Files\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="proto\map.pb.cc">
       <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\MainMenu.cpp">
+      <Filter>Source Files\Menus\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\MainMenuTab.cpp">
+      <Filter>Source Files\Menus\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\LevelSelectMenu.cpp">
+      <Filter>Source Files\Menus\Main Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,9 +428,6 @@
     <ClInclude Include="headers\WindowButton.h">
       <Filter>Header Files\Menus\Buttons</Filter>
     </ClInclude>
-    <ClInclude Include="headers\MainMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="headers\DemolishToolMouseItem.h">
       <Filter>Header Files\Handlers</Filter>
     </ClInclude>
@@ -437,12 +446,18 @@
     <ClInclude Include="headers\Vector.h">
       <Filter>Header Files\Data structures</Filter>
     </ClInclude>
+    <ClInclude Include="headers\MainMenu.h">
+      <Filter>Header Files\Menus\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\MainMenuTab.h">
+      <Filter>Header Files\Menus\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\LevelSelectMenu.h">
+      <Filter>Header Files\Menus\Main Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config\game.cfg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="level\Level1.FMP">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
@@ -516,10 +531,5 @@
     <Font Include="resources\lazy.ttf">
       <Filter>Resource Files</Filter>
     </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="level\Level1.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -10,40 +10,28 @@
 #include <iostream>
 
 //needs the level name for getting the movement checkpoints from the config file
-Enemy::Enemy(const std::string& monster_name, const int way, Level* level, LAYERS render_layer) : Unit(monster_name, level, render_layer), mDead(false), mHealth_bar_dimensions()
+Enemy::Enemy(const std::string& monster_name, const int way, Level* level, const LAYERS render_layer)
+	: Unit(monster_name, level, render_layer)
+	, mDead(false)
+	, mHealth_bar_dimensions()
 {
-	//way is the index of the way the unit is to run (there can be multiple ones in one level) (starts with 0)
-	const auto s_way = std::to_string(way);
-
-	const auto level_section = "level" + mLevel->get_level_number();
 	const auto monster_sprite_section = monster_name + "/sprite";
 	const auto monster_stats_section = monster_name + "/stats";
 
 	this->mLife_cost = gConfig_file->value(monster_stats_section, "lifecost");
-	const int checkpoint_number = gConfig_file->value(level_section, "way" + s_way + "number_of_checkpoints");
 
 	SDL_Point offset;
 	offset.x = (rand() % 31) - 15;
 	offset.y = (rand() % 31) - 15;
 
-	for (auto i = 0; i < checkpoint_number; i++)
+	Map* map = level->get_map();
+	auto monster_path = map->get_monster_path(way);
+	
+	for (const auto& checkpoint : monster_path.checkpoints())
 	{
-		//reading the checkpoint data
-		auto number = std::to_string(i);
-		SDL_Point p;
-
-		//some preprocessing using append to (hopefully) improve performance
-		std::string x_string = "way";
-		x_string.append(s_way).append("checkpoint").append(number);
-		auto y_string = x_string;
-		x_string.append("x");
-		y_string.append("y");
-		//take offset into account
-		p.x = gConfig_file->value(level_section, x_string) + offset.x;
-		p.y = gConfig_file->value(level_section, y_string) + offset.y;
-		//sorting the checkpoints into the array (they have to be in the right order)
-		mCheckpoints.push_back(p);
+		mCheckpoints.push_back(SDL_Point{ checkpoint.x() + offset.x, checkpoint.y() + offset.y });
 	}
+	
 	//starting position is the first checkpoint
 	mPosition = static_cast<Vector>(mCheckpoints.at(0));
 	//delete first element from vector
@@ -60,7 +48,6 @@ Enemy::Enemy(const std::string& monster_name, const int way, Level* level, LAYER
 	mHealth_bar_dimensions.w = gConfig_file->value(healthbar_sprite_section, "image_width");
 	mHealth_bar_dimensions.h = gConfig_file->value(healthbar_sprite_section, "image_height");
 
-
 	mLoot_resources.set_resources(gConfig_file->value_or_zero(monster_stats_section, "goldloot"),
 		gConfig_file->value_or_zero(monster_stats_section, "woodloot"),
 		gConfig_file->value_or_zero(monster_stats_section, "stoneloot"),
@@ -70,10 +57,7 @@ Enemy::Enemy(const std::string& monster_name, const int way, Level* level, LAYER
 		gConfig_file->value_or_zero(monster_stats_section, "foodloot"));
 }
 
-Enemy::~Enemy()
-{
-
-}
+Enemy::~Enemy() = default;
 
 void Enemy::on_tick()
 {

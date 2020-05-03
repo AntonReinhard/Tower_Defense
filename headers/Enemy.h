@@ -44,7 +44,7 @@ private:
 	int mLife_cost;
 	Resources mLoot_resources;
 	
-	//TODO: make healthbar it's own class? not sure
+	//TODO: make healthbar its own class? not sure
 	LTexture* mFull_health_bar;
 	LTexture* mEmpty_health_bar;
 	SDL_Rect mHealth_bar_dimensions;

@@ -85,6 +85,11 @@ TILETYPES Map::get_resource_at_tile(const int x, const int y) const
 	return TILETYPES(mMap.resources().tiles(y * mMap.width() * 2 + x));
 }
 
+towerdefense::map::Monsterpath Map::get_monster_path(const int index) const
+{
+	return mMap.paths().at(index);
+}
+
 void Map::update_map_texture() const
 {
 	if (!mMap_texture->create_blank(mWidth, mHeight, SDL_TEXTUREACCESS_TARGET))

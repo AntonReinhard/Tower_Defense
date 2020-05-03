@@ -95,6 +95,7 @@
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -151,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="classes\LevelSelectMenu.cpp" />
+    <ClCompile Include="classes\MainMenuTab.cpp" />
     <ClCompile Include="classes\OnHitShot.cpp" />
     <ClCompile Include="classes\OnHitTower.cpp" />
     <ClCompile Include="classes\StaticTargetShot.cpp" />
@@ -215,6 +218,8 @@
     <ClCompile Include="proto\map.pb.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\LevelSelectMenu.h" />
+    <ClInclude Include="headers\MainMenuTab.h" />
     <ClInclude Include="headers\OnHitShot.h" />
     <ClInclude Include="headers\OnHitTower.h" />
     <ClInclude Include="headers\StaticTargetShot.h" />
@@ -277,7 +282,6 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="config\game.cfg" />
-    <None Include="level\Level1.FMP" />
     <None Include="proto\map.proto" />
   </ItemGroup>
   <ItemGroup>
@@ -304,9 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\lazy.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="level\Level1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

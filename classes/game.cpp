@@ -6,7 +6,6 @@
 
 #include "Game.h"
 #include "SDL_setup.h"
-#include "Tower.h"
 #include "Level.h"
 #include "IndustrialBuilding.h"
 #include "MouseHandler.h"
@@ -23,6 +22,7 @@ Game::Game()
 	, mVsync_enabled(false)
 {
 	mMain_menu = new MainMenu(this);
+	mLevel_select_menu = new LevelSelectMenu(this);
 	mCurrent_level = nullptr;
 	const std::string vsync_flag = gConfig_file->value("video", "vsync");
 	if (vsync_flag == "true") mVsync_enabled = true;
@@ -30,14 +30,6 @@ Game::Game()
 
 Game::~Game()
 {
-	for (auto& tower : mAll_towers)
-	{
-		delete tower;
-	}
-	for (auto& building : mAll_industrial_buildings)
-	{
-		delete building;
-	}
 	delete mCurrent_level;
 }
 
@@ -90,6 +82,8 @@ void Game::start_game()
 		{
 		case STATE::MAIN_MENU:
 			break;
+		case STATE::LEVEL_SELECT:
+			break;
 		case STATE::PLAYING:
 			mCurrent_level->on_tick();
 
@@ -141,16 +135,6 @@ void Game::start_game()
 	}
 }
 
-void Game::add_tower(Tower* tower)
-{
-	mAll_towers.push_back(tower);
-}
-
-void Game::add_industrial_building(IndustrialBuilding* industrial_building)
-{
-	mAll_industrial_buildings.push_back(industrial_building);
-}
-
 void Game::load_level(const int level_number)
 {
 	if (!gConfig_file->value_exists("level" + std::to_string(level_number), "exists"))
@@ -175,3 +159,14 @@ void Game::set_state(const Game::STATE state)
 	default:;
 	}
 }
+
+MainMenu* Game::get_main_menu()
+{
+	return mMain_menu;
+}
+
+LevelSelectMenu* Game::get_level_select_menu()
+{
+	return mLevel_select_menu;
+}
+

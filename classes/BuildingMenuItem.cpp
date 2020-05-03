@@ -78,7 +78,7 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
 	{
 		menu_item_window->add_text_to_window(new Text(mName_of_object, rect, WINDOWCONTENT, text_color, false));
 		rect.y += 20;
-		menu_item_window->add_text_to_window(new Text("       MaxStorage   Mainten", rect, WINDOWCONTENT, text_color, false));
+		menu_item_window->add_text_to_window(new Text("       MaxStorage   Cost(M)", rect, WINDOWCONTENT, text_color, false));
 
 		rect.x += 60;
 		for (auto i = 0; i < RESOURCES_TOTAL; ++i)
@@ -86,7 +86,7 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
 			rect.y += 20;
 			menu_item_window->add_text_to_window(new Text(Text::remove_trailing_zeros(std::to_string(storage_limit.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false));
 			rect.x += 70;
-			menu_item_window->add_text_to_window(new Text(Text::remove_trailing_zeros(std::to_string(maintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false));
+			menu_item_window->add_text_to_window(new Text(Text::remove_trailing_zeros(std::to_string(mConstruction_costs.get_resource(RESOURCETYPES(i))))+ "(" +Text::remove_trailing_zeros(std::to_string(maintenance->get_resource(RESOURCETYPES(i)))) + ")", rect, WINDOWCONTENT, text_color, false));
 			rect.x -= 70;
 			menu_item_window->add_text_to_window(new Text(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color, false));
 		}

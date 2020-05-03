@@ -6,10 +6,20 @@ message map {
     message Layer {
         repeated uint32 tiles = 1;
     }
+    
+    message Monsterpath { 
+        message Coordinate {
+	        int32 x = 1;
+	        int32 y = 2;
+        }
+        repeated Coordinate checkpoints = 1;
+    }
 
     repeated Layer layers = 1;              //layers for how it looks
     Layer resources = 2;                    //layer for resources
     map<uint32, string> tile_map = 3;       //paths to the tile images
     uint32 width = 4;
     uint32 height = 5;
+
+    repeated Monsterpath paths = 6;
 }

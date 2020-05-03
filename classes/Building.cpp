@@ -299,14 +299,8 @@ std::shared_ptr<Window> Building::create_window()
 	const SDL_Color text_color = { 0, 0, 0 ,0 };
 	SDL_Rect rect{ 1280, 584, 600, 220 };
 	//window for the warehouse is at a different position, than the other buildingwindows
-	if (get_name() == "Warehouse")
+	if (get_name() != "Warehouse") //text for non-Warehouse buildings is at different position
 	{
-		rect.y += 220;
-		rect.w -= 350;
-	}
-	else //text for non-Warehouse buildings is at different position
-	{
-		//TODO: What is this?
 		//rect.x += rect.w - 200;
 	}
 

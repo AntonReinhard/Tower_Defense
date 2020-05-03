@@ -1,9 +1,9 @@
+#include <utility>
+
 #include "Level.h"
 #include "Building.h"
 #include "ConfigFile.h"
 #include "WareHouse.h"
-#include <fstream>
-#include <utility>
 #include "SDL_setup.h"
 #include "Map.h"
 #include "EntityHandler.h"
@@ -26,7 +26,7 @@ Level::Level(std::string level_number, Game* game) : mLevel_number(std::move(lev
 		gConfig_file->value_or_zero(level_section, "food"));
 
 	mWave_number = 1;
-	auto first_wave = new Wave(std::to_string(mWave_number), this);
+	const auto first_wave = new Wave(std::to_string(mWave_number), this);
 	mWaves.push_back(first_wave);
 	mWave_number++;
 
@@ -90,7 +90,7 @@ void Level::on_tick()
 	std::vector<int> deleted_waves;;
 
 	//need to go through backwards so we can delete waves from the vector
-	for (auto i = 0; i < mWaves.size(); ++i)
+	for (std::size_t i = 0; i < mWaves.size(); ++i)
 	{
 		auto wave = mWaves[i];
 
@@ -241,3 +241,7 @@ Menu* Level::get_menu() const
 	return mMenu;
 }
 
+Map* Level::get_map() const
+{
+	return mMap;
+}
