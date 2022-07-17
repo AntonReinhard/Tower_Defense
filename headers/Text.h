@@ -4,30 +4,31 @@
 #include "Vector.h"
 #include "Enums.h"
 
-class Text : public Renderable
+class Text 
+    : public Renderable
 {
 public:
-	Text(const std::string& text, SDL_Rect dim, LAYERS layer, SDL_Color text_color, bool rendering_enabled);
-	~Text();
-	
-	void set_text(const std::string& text);
+    Text(const std::string& text, SDL_Rect dim, LAYERS layer, SDL_Color text_color, bool rendering_enabled);
+    ~Text();
+    
+    void set_text(const std::string& text);
 
-	void render() override;
+    void render() override;
 
-	LTexture* get_texture() const;
+    LTexture* get_texture() const;
 
-	void set_position(int x, int y);
-	SDL_Rect& get_dimensions();
-	
-	static std::string remove_trailing_zeros(std::string s);
+    void set_position(int x, int y);
+    const SDL_Rect& get_dimensions() const;
+    
+    static std::string remove_trailing_zeros(std::string s);
 
 private:
-	LTexture* mText_texture;
+    LTexture* mText_texture;
 
-	std::string mText;
+    std::string mText;
 
-	SDL_Color mText_color;
+    SDL_Color mText_color;
 
-	SDL_Rect mDim;
+    SDL_Rect mDim;
 };
 

@@ -5,49 +5,49 @@
 #include "Production.h"
 
 class Carriage final
-	: public Unit
+    : public Unit
 {
 public:
-	explicit Carriage(const std::string& unit_name, Level* level, LAYERS render_layer, Building* source = nullptr, Building* drain = nullptr);
-	~Carriage();
+    explicit Carriage(const std::string& unit_name, Level* level, LAYERS render_layer, Building* source = nullptr, Building* drain = nullptr);
+    ~Carriage();
 
-	void on_tick() override;
+    void on_tick() override;
 
-	void set_source(Building* b);
-	void set_drain(Building* b);
+    void set_source(Building* b);
+    void set_drain(Building* b);
 
-	Building* get_source() const;
-	Building* get_drain() const;
+    Building* get_source() const;
+    Building* get_drain() const;
 
-	void update_transportation();
+    void update_transportation();
 
-	bool move_towards(SDL_Point target);
+    bool move_towards(SDL_Point target);
 
-	void move();
+    void move();
 
-	bool update_checkpoints_to(Building* source, Building* target);
+    bool update_checkpoints_to(Building* source, Building* target);
 
 private:
-	//building the carriage is getting resources from
-	Building* mSource;
-	//building the carriage is bringing resources to
-	Building* mDrain;
+    //building the carriage is getting resources from
+    Building* mSource;
+    //building the carriage is bringing resources to
+    Building* mDrain;
 
-	//total capacity
-	Resources* mCurrent_resources;
+    //total capacity
+    Resources mCurrent_resources;
 
-	//what will be delivered to the drain, saved as what the drain is consuming/producing
-	Production mDelivering;
+    //what will be delivered to the drain, saved as what the drain is consuming/producing
+    Production mDelivering;
 
-	//what will be removed from the source, saved as what the source is consuming/producing
-	Production mRemoving;
+    //what will be removed from the source, saved as what the source is consuming/producing
+    Production mRemoving;
 
-	//what will be transported, saved from the drain's perspective
-	Production mTransporting;
+    //what will be transported, saved from the drain's perspective
+    Production mTransporting;
 
-	ACTIVITY mCurrent_activity;
+    ACTIVITY mCurrent_activity;
 
-	std::vector<SDL_Point> mCheckpoints;
+    std::vector<SDL_Point> mCheckpoints;
 
-	Level* mLevel;
+    Level* mLevel;
 };

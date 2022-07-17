@@ -9,16 +9,16 @@ class Game;
 class MainMenuTab : public Renderable
 {
 public:
-	MainMenuTab(Game* game);
+    MainMenuTab(Game* game);
 
-	void render() override;
-	
-	void set_enabled(bool enabled);
+    void render() override;
+    
+    void set_enabled(bool enabled);
 
 protected:	
-	LTexture* mBackground_sprite;
+    LTexture* mBackground_sprite;
 
-	std::vector<Button*> mButtons;
+    std::vector<Button*> mButtons;
 
-	Game* mGame;
+    Game* mGame;
 };

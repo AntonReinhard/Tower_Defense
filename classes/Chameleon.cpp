@@ -30,41 +30,41 @@ René Nyffenegger rene.nyffenegger@adp-gmbh.ch
 #include "Chameleon.h"
 
 Chameleon::Chameleon(std::string const& value) {
-	mValue_ = value;
+    mValue_ = value;
 }
 
 Chameleon::Chameleon(const char* c) {
-	mValue_ = c;
+    mValue_ = c;
 }
 
 Chameleon::Chameleon(double d) {
-	std::stringstream s;
-	s << d;
-	mValue_ = s.str();
+    std::stringstream s;
+    s << d;
+    mValue_ = s.str();
 }
 
 Chameleon::Chameleon(Chameleon const& other) {
-	mValue_ = other.mValue_;
+    mValue_ = other.mValue_;
 }
 
 auto Chameleon::operator=(Chameleon const& other) -> Chameleon& = default;
 
 Chameleon& Chameleon::operator=(const double i) {
-	std::stringstream s;
-	s << i;
-	mValue_ = s.str();
-	return *this;
+    std::stringstream s;
+    s << i;
+    mValue_ = s.str();
+    return *this;
 }
 
 Chameleon& Chameleon::operator=(std::string const& s) {
-	mValue_ = s;
-	return *this;
+    mValue_ = s;
+    return *this;
 }
 
 Chameleon::operator std::string() const {
-	return mValue_;
+    return mValue_;
 }
 
 Chameleon::operator int() const {
-	return strtol(mValue_.c_str(), nullptr, 10);
+    return strtol(mValue_.c_str(), nullptr, 10);
 }

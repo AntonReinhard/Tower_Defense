@@ -8,37 +8,37 @@
 class Game 
 {
 public:
-	Game();
-	~Game();
+    Game();
+    ~Game();
 
-	void start_game();
-	void render_all() const;
+    void start_game();
+    void render_all() const;
 
-	void load_level(int level_number);
+    void load_level(int level_number);
 
-	enum class STATE
-	{
-		MAIN_MENU,
-		PLAYING,
-		LEVEL_SELECT,
-		EXITING
-	};
+    enum class STATE
+    {
+        MAIN_MENU,
+        PLAYING,
+        LEVEL_SELECT,
+        EXITING
+    };
 
-	void set_state(Game::STATE state);
+    void set_state(Game::STATE state);
 
-	MainMenu* get_main_menu();
-	LevelSelectMenu* get_level_select_menu();
+    MainMenu* get_main_menu();
+    LevelSelectMenu* get_level_select_menu();
 
 private:
 
-	STATE mState;
-		
-	Level* mCurrent_level;
-	MainMenu* mMain_menu;
-	LevelSelectMenu* mLevel_select_menu;
+    STATE mState;
+        
+    Level* mCurrent_level;
+    MainMenu* mMain_menu;
+    LevelSelectMenu* mLevel_select_menu;
 
-	SDL_Point mMouse_position;
+    SDL_Point mMouse_position;
 
-	Text mAverage_fps;
-	bool mVsync_enabled;
+    Text mAverage_fps;
+    bool mVsync_enabled;
 };
