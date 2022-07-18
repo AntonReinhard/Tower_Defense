@@ -34,7 +34,7 @@ Menu::Menu(Level *level, const LAYERS render_layer)
 
     dim.x = 1600;
     mButtons[BUILDINGTYPE::STREET]
-        = new Button("TowerButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::STREET);
+        = new Button("LogisticsButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::STREET);
 
 
     for (auto i = 0; i < BUILDINGTYPE::BUILDINGTYPES_TOTAL; i++) {
