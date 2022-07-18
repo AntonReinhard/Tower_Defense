@@ -22,7 +22,7 @@ public:
 
     void create_window_texture() const;
     
-    void add_text_to_window(std::shared_ptr<Text> text);
+    std::shared_ptr<Text> add_text_to_window(const std::string& text, SDL_Rect dim, LAYERS layer, SDL_Color text_color);
 
     void update_text_texture();
 

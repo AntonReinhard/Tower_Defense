@@ -41,17 +41,17 @@ UpgradeButton::UpgradeButton(const std::string& button_name, SDL_Rect dim, Butto
         gConfig_file->value_or_zero(building_upgrade_section, "foodMain") };
 
     SDL_Color text_color = { 0,0,0,0 };
-    dest = { mUpgrade_window->get_dim().x + 20, mUpgrade_window->get_dim().y + mWindow->get_dim().h - 180, 0, 0 };
-    mUpgrade_window->add_text_to_window(std::make_shared<Text>("Upgrade costs Main", dest, UPGRADEWINDOWCONTENT, text_color, false));
+    dest = { 20, mWindow->get_dim().h - 180, 0, 0 };
+    mUpgrade_window->add_text_to_window("Upgrade costs Main", dest, UPGRADEWINDOWCONTENT, text_color);
     
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
         dest.y += 20;
-        mUpgrade_window->add_text_to_window(std::make_shared<Text>(Resources::get_name(RESOURCETYPES(i)), dest, UPGRADEWINDOWCONTENT, text_color, false));
+        mUpgrade_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), dest, UPGRADEWINDOWCONTENT, text_color);
         dest.x += 60;
-        mUpgrade_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(upgrade_costs.get_resource(RESOURCETYPES(i)))), dest, UPGRADEWINDOWCONTENT, text_color, false));
+        mUpgrade_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(upgrade_costs.get_resource(RESOURCETYPES(i)))), dest, UPGRADEWINDOWCONTENT, text_color);
         dest.x += 60;
-        mUpgrade_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(upgrade_maintenance.get_resource(RESOURCETYPES(i)))), dest, UPGRADEWINDOWCONTENT, text_color, false));
+        mUpgrade_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(upgrade_maintenance.get_resource(RESOURCETYPES(i)))), dest, UPGRADEWINDOWCONTENT, text_color);
         dest.x -= 120;
     }
 

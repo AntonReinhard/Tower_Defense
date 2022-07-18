@@ -30,18 +30,23 @@ Window::Window(const SDL_Rect dim, const LAYERS click_layer, const LAYERS render
     mText_texture = new LTexture();
 
     set_clickable_space(mDim);
+
+    create_window_texture();
 }
 
-Window::~Window() = default;
+Window::~Window() {
+    mWindow_texture->free();
+    mText_texture->free();
+}
 
 void Window::render()
 {
-    gLayer_handler->render_to_layer(mWindow_texture, mRender_layer, {}, mDim);
+    gLayer_handler->render_to_layer(mWindow_texture, WINDOWS, {}, mDim);
 
     if (mRerender) update_text_texture();
     if (mTexts.empty()) return;
 
-    gLayer_handler->render_to_layer(mText_texture, mTexts[0]->get_render_layer(), {}, mDim);
+    gLayer_handler->render_to_layer(mText_texture, WINDOWCONTENT, {}, mDim);
 }
 
 void Window::create_window_texture() const
@@ -52,24 +57,25 @@ void Window::create_window_texture() const
         return;
     }
 
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0x00);
-    SDL_RenderClear(gRenderer);
-
     //we want to render to the texture
     mWindow_texture->set_as_render_target();
+
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(gRenderer);
 
     //draw the inner color of the window (background of the window)
     SDL_Rect dest{ 0, 0, mDim.w, mDim.h };
 
     mBackground->render(&dest);
+    dest.w = 0; dest.h = 0;
 
     //draw the four corners
     mTop_left_corner->render(&dest);
-    dest.x = mDim.x + mDim.w - mCorner_width;
+    dest.x = mDim.w - mCorner_width;
     mTop_right_corner->render(&dest);
-    dest.y = mDim.y + mDim.h - mCorner_height;
+    dest.y = mDim.h - mCorner_height;
     mBottom_right_corner->render(&dest);
-    dest.x = mDim.x;
+    dest.x = 0;
     mBottom_left_corner->render(&dest);
 
     //draw the borders
@@ -79,7 +85,7 @@ void Window::create_window_texture() const
     mHorizontal_border->render(&dest);
 
     //horizontal bottom:
-    dest.y = mDim.y + mDim.h - mBorder_thickness;
+    dest.y = mDim.h - mBorder_thickness;
     //width, height and x stay the same
 
     mHorizontal_border->render(&dest);
@@ -90,10 +96,12 @@ void Window::create_window_texture() const
     mVertical_border->render(&dest);
 
     //vertical right
-    dest.x = mDim.x + mDim.w - mBorder_thickness;
+    dest.x = mDim.w - mBorder_thickness;
     //width, height and y stay the same
 
     mVertical_border->render(&dest);
+
+    SDL_SetRenderTarget(gRenderer, nullptr);
 }
 
 void Window::set_dim(const SDL_Rect dim)
@@ -106,22 +114,33 @@ SDL_Rect Window::get_dim() const
     return mDim;
 }
 
-void Window::add_text_to_window(std::shared_ptr<Text> text)
+std::shared_ptr<Text> Window::add_text_to_window(const std::string& text, SDL_Rect dim, LAYERS layer, SDL_Color text_color)
 {
-    mTexts.emplace_back(text);
+    auto t = std::make_shared<Text>(text, dim, layer, text_color, false);
+    mTexts.emplace_back(t);
     mRerender = true;
+
+    return t;
 }
 
 void Window::update_text_texture()
 {
-    if (!mWindow_texture->create_blank(mDim.w, mDim.h, SDL_TEXTUREACCESS_TARGET))
+    if (!mText_texture->create_blank(mDim.w, mDim.h, SDL_TEXTUREACCESS_TARGET))
     {
         printf("Failed to create target texture!\n");
         return;
     }
 
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0x00);
-    SDL_RenderClear(gRenderer);
+    mText_texture->set_as_render_target();
+
+    // set blend modes to create transparent texture to render text on
+    SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
+    mText_texture->set_blend_mode(SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(gRenderer, 0x00, 0xFF, 0xFF, 0x40);
+    SDL_RenderFillRect(gRenderer, nullptr);
+
+    SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
+    SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 
     SDL_Rect dest;
     for (const auto& text : mTexts)
@@ -129,6 +148,8 @@ void Window::update_text_texture()
         dest = text->get_dimensions();
         text->get_texture()->render(&dest);
     }
+
+    SDL_SetRenderTarget(gRenderer, nullptr);
 
     mRerender = false;
 }

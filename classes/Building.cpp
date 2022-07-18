@@ -301,26 +301,24 @@ std::shared_ptr<Window> Building::create_window()
 
     auto window = std::make_shared<Window>(rect, WINDOWS, WINDOWS);
 
-    rect.x += 20;
-    rect.y += 20;
+    rect.x = 20;
+    rect.y = 20;
     rect.w = 0;//no scaling on text
     rect.h = 0;
 
-    window->add_text_to_window(std::make_shared<Text>(mName, rect, WINDOWCONTENT, text_color, false));
+    window->add_text_to_window(mName, rect, WINDOWCONTENT, text_color);
     rect.y += 20;
-    window->add_text_to_window(std::make_shared<Text>("            Storage    Main", rect, WINDOWCONTENT, text_color, false));
+    window->add_text_to_window("            Storage    Main", rect, WINDOWCONTENT, text_color);
 
     rect.x += 60;
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
         rect.y += 20;
-        mStorage_values[i] = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_display_resources().get_resource(RESOURCETYPES(i))))
-            + "/" + Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_limit()->get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false);
-        window->add_text_to_window(mStorage_values[i]);
+        mStorage_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_display_resources().get_resource(RESOURCETYPES(i))))
+            + "/" + Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_limit()->get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
         rect.x += 90;
-        mMaintenance_values[i] = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false);
-        window->add_text_to_window(mMaintenance_values[i]);
-        window->add_text_to_window(std::make_shared<Text>(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color, false));
+        mMaintenance_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+        window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
         rect.x -= 90;
     }
 

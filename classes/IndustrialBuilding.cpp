@@ -24,18 +24,16 @@ std::shared_ptr<Window> IndustrialBuilding::create_window()
 
     //add production text in the building window
     const SDL_Color text_color = { 0,0,0,0 };
-    SDL_Rect dest{ 0, 0, mBuilding_window->get_dim().x + 200, mBuilding_window->get_dim().y + 40 };
-    auto const headline = std::make_shared<Text>("        Production", dest, WINDOWCONTENT, text_color, false);
-    mBuilding_window->add_text_to_window(headline);
+    SDL_Rect dest{ 0, 0, 200, 40 };
+    mBuilding_window->add_text_to_window("        Production", dest, WINDOWCONTENT, text_color);
 
     for (auto i = 0; i < mProduction_values.size(); ++i)
     {
         dest.y += 20;
-        mBuilding_window->add_text_to_window(std::make_shared<Text>(Resources::get_name(RESOURCETYPES(i)), dest, WINDOWCONTENT, text_color, false));
+        mBuilding_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), dest, WINDOWCONTENT, text_color);
 
         dest.x += 60;
-        mProduction_values[i] = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mProduce.get_display_resources().get_resource(RESOURCETYPES(i)))), dest, WINDOWCONTENT, text_color, false);
-        mBuilding_window->add_text_to_window(mProduction_values[i]);
+        mProduction_values[i] = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mProduce.get_display_resources().get_resource(RESOURCETYPES(i)))), dest, WINDOWCONTENT, text_color);
         dest.x -= 60;
     }
 

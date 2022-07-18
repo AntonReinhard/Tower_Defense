@@ -7,7 +7,9 @@ Text::Text(const std::string& text, const SDL_Rect dim, const LAYERS layer, cons
 {
     mText_color = text_color;
     mText_texture->load_from_rendered_text(text, mText_color);
-    set_rendering_enabled(rendering_enabled);
+    set_rendering_enabled(false);
+    mDim.w = mText_texture->get_width();
+    mDim.h = mText_texture->get_height();
 }
 
 Text::~Text()
@@ -42,6 +44,8 @@ void Text::set_text(const std::string& text)
     {
         mText = text;
         mText_texture->load_from_rendered_text(text, mText_color);
+        mDim.w = mText_texture->get_width();
+        mDim.h = mText_texture->get_height();
     }
 }
 

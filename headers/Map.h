@@ -25,7 +25,7 @@ public:
     towerdefense::map::Monsterpath get_monster_path(int index) const;
     
 protected:
-    void update_map_texture() const;
+    void update_map_texture();
 
     //the map data structure
     towerdefense::map mMap;

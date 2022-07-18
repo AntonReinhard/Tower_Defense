@@ -90,19 +90,19 @@ towerdefense::map::Monsterpath Map::get_monster_path(const int index) const
     return mMap.paths().at(index);
 }
 
-void Map::update_map_texture() const
+void Map::update_map_texture()
 {
     if (!mMap_texture->create_blank(mWidth, mHeight, SDL_TEXTUREACCESS_TARGET))
     {
-        printf("Failed to create target texture!\n");
+        printf("Failed to create map texture!\n");
         return;
     }
 
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    SDL_RenderClear(gRenderer);
-
     //we want to render to the texture
     mMap_texture->set_as_render_target();
+
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(gRenderer);
 
     //render all the tiles on all the layers to the map texture
     for (unsigned l = 0; l < mMap.layers_size(); ++l) {
@@ -127,4 +127,7 @@ void Map::update_map_texture() const
             dest.y += dest.h;
         }
     }
+
+    
+    SDL_SetRenderTarget(gRenderer, nullptr);
 }

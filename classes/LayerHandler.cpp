@@ -69,6 +69,7 @@ void LayerHandler::present()
     //Reset render target
     SDL_SetRenderTarget(gRenderer, nullptr);
 
+    SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(gRenderer);
 

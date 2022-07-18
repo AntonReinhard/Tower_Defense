@@ -57,6 +57,9 @@ void Tower::render()
 
 void Tower::update_building_window()
 {
+    if (mDamage_upgrade_number_texture == nullptr) {
+        create_window();
+    }
     //updates texture: number of little upgrades
     mDamage_upgrade_number_texture->set_text(std::to_string(mNumber_of_damage_upgrades));
     mAttackspeed_upgrade_number_texture->set_text(std::to_string(mNumber_of_attackspeed_upgrades));
@@ -283,8 +286,8 @@ bool Tower::upgrade_attack_speed()
 
 bool Tower::enemy_in_range(const Enemy& enemy, const double radius, const SDL_Point center)
 {
-    const auto x_div = center.x - enemy.get_position().x - enemy.get_hit_box_offset().x;
-    const auto y_div = center.y - enemy.get_position().y - enemy.get_hit_box_offset().y;
+    const auto x_div = static_cast<double>(center.x) - static_cast<double>(enemy.get_position().x) - enemy.get_hit_box_offset().x;
+    const auto y_div = static_cast<double>(center.y) - static_cast<double>(enemy.get_position().y) - enemy.get_hit_box_offset().y;
     const auto dist_to_enemy = sqrt(x_div * x_div + y_div * y_div);
     return dist_to_enemy <= radius + enemy.get_hitbox_radius();
 }
@@ -320,54 +323,48 @@ std::shared_ptr<Window> Tower::create_window()
     const SDL_Color text_color = { 0,0,0,0 };
     dest = { 0, 0, mUpgrade_damage_button->get_dimension().x, mUpgrade_damage_button->get_dimension().y + 30 };
     
-    mDamage_upgrade_number_texture = std::make_shared<Text>(std::to_string(mNumber_of_damage_upgrades), dest, WINDOWCONTENT, text_color, false);
-    mBuilding_window->add_text_to_window(mDamage_upgrade_number_texture);
+    mDamage_upgrade_number_texture = mBuilding_window->add_text_to_window(std::to_string(mNumber_of_damage_upgrades), dest, WINDOWCONTENT, text_color);
     dest.x += 56;
-    mAttackspeed_upgrade_number_texture = std::make_shared<Text>(std::to_string(mNumber_of_attackspeed_upgrades), dest, WINDOWCONTENT, text_color, false);
-    mBuilding_window->add_text_to_window(mAttackspeed_upgrade_number_texture);
+    mAttackspeed_upgrade_number_texture = mBuilding_window->add_text_to_window(std::to_string(mNumber_of_attackspeed_upgrades), dest, WINDOWCONTENT, text_color);
     dest.x += 56;
-    mRange_upgrade_number_texture = std::make_shared<Text>(std::to_string(mNumber_of_attackspeed_upgrades), dest, WINDOWCONTENT, text_color, false);
-    mBuilding_window->add_text_to_window(mRange_upgrade_number_texture);
+    mRange_upgrade_number_texture = mBuilding_window->add_text_to_window(std::to_string(mNumber_of_attackspeed_upgrades), dest, WINDOWCONTENT, text_color);
 
     //turret stats-text displayed(const)
-    dest.x = mBuilding_window->get_dim().x + 200;
-    dest.y = mBuilding_window->get_dim().y + 40;
+    dest.x = 200;
+    dest.y = 40;
     dest.w = 0;	//setting these to 0 will not scale anything
     dest.h = 0;
-    mBuilding_window->add_text_to_window(std::make_shared<Text>("Dmg: ", dest, WINDOWCONTENT, text_color, false));
+    mBuilding_window->add_text_to_window("Dmg: ", dest, WINDOWCONTENT, text_color);
     dest.y += 30;
-    mBuilding_window->add_text_to_window(std::make_shared<Text>("AS: ", dest, WINDOWCONTENT, text_color, false));
+    mBuilding_window->add_text_to_window("AS: ", dest, WINDOWCONTENT, text_color);
     dest.y += 30;
-    mBuilding_window->add_text_to_window(std::make_shared<Text>("Range: ", dest, WINDOWCONTENT, text_color, false));
+    mBuilding_window->add_text_to_window("Range: ", dest, WINDOWCONTENT, text_color);
     dest.y += 30;
-    mBuilding_window->add_text_to_window(std::make_shared<Text>("Explosive radius: ", dest, WINDOWCONTENT, text_color, false));
+    mBuilding_window->add_text_to_window("Explosive radius: ", dest, WINDOWCONTENT, text_color);
     dest.y += 30;
-    mBuilding_window->add_text_to_window(std::make_shared<Text>("Damage dist: ", dest, WINDOWS, text_color, false));
+    mBuilding_window->add_text_to_window("Damage dist: ", dest, WINDOWS, text_color);
     dest.y += 30;
 
-    mDamage_distribution_value = std::make_shared<Text>(
+    auto damage_string =
         "P: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_phys_dmg()))
         + " M: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_magic_dmg()))
         + " F: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_fire_dmg()))
         + " W: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_water_dmg()))
-        + " E: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_elec_dmg())), dest, WINDOWS, text_color, false);
-    mBuilding_window->add_text_to_window(mDamage_distribution_value);
+        + " E: " + Text::remove_trailing_zeros(std::to_string(mDamage.get_elec_dmg()));
+
+    mDamage_distribution_value = mBuilding_window->add_text_to_window(damage_string, dest, WINDOWS, text_color);
 
     //turret stats-numbers displayed(dynamic)
-    dest.x = mBuilding_window->get_dim().x + 260;
-    dest.y = mBuilding_window->get_dim().y + 40;
-    mDmg_value = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mDamage.get_dmg_sum())), dest, WINDOWS, text_color, false);
-    mBuilding_window->add_text_to_window(mDmg_value);
+    dest.x = 260;
+    dest.y = 40;
+    mDmg_value = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mDamage.get_dmg_sum())), dest, WINDOWS, text_color);
     dest.y += 30;
-    mAs_value = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mAttack_speed)), dest, WINDOWS, text_color, false);
-    mBuilding_window->add_text_to_window(mAs_value);
+    mAs_value = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mAttack_speed)), dest, WINDOWS, text_color);
     dest.y += 30;
-    mRange_value = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mRange)), dest, WINDOWS, text_color, false);
-    mBuilding_window->add_text_to_window(mRange_value);
+    mRange_value = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mRange)), dest, WINDOWS, text_color);
     dest.y += 30;
     dest.x += 70;
-    mExplosive_radius_value = std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mExplosive_radius)), dest, WINDOWCONTENT, text_color, false);
-    mBuilding_window->add_text_to_window(mExplosive_radius_value);
+    mExplosive_radius_value = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mExplosive_radius)), dest, WINDOWCONTENT, text_color);
 
     return mBuilding_window;
 }

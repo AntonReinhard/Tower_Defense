@@ -60,35 +60,32 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
 
     const std::string kind_of_object = gConfig_file->value(mName_of_object + "/menuitem", "kind_of_object");
     SDL_Color text_color = { 0, 0, 0 ,0 };
-    SDL_Rect rect{ 1280, 364, 400, 220 };
-    menu_item_window = std::make_shared<Window>(rect, WINDOWS, WINDOWS);
-    rect.x += 20;
-    rect.y += 20;
-    rect.w = 0;//no scaling on text
-    rect.h = 0;
+    menu_item_window = std::make_shared<Window>(SDL_Rect{ 1280, 364, 400, 220 }, WINDOWS, WINDOWS);
+
+    SDL_Rect rect{ 20, 20, 0, 0 };
 
     if (kind_of_object == "path")
     {
         auto speed_multiplier = gConfig_file->value(building_stats_section, "speed_multiplier");
-        menu_item_window->add_text_to_window(std::make_shared<Text>("Speed Multi", rect, WINDOWCONTENT, text_color, false));
+        menu_item_window->add_text_to_window("Speed Multi", rect, WINDOWCONTENT, text_color);
         rect.x += 120;
-        menu_item_window->add_text_to_window(std::make_shared<Text>(std::to_string(speed_multiplier), rect, WINDOWCONTENT, text_color, false));
+        menu_item_window->add_text_to_window(std::to_string(speed_multiplier), rect, WINDOWCONTENT, text_color);
     }
     else
     {
-        menu_item_window->add_text_to_window(std::make_shared<Text>(mName_of_object, rect, WINDOWCONTENT, text_color, false));
+        menu_item_window->add_text_to_window(mName_of_object, rect, WINDOWCONTENT, text_color);
         rect.y += 20;
-        menu_item_window->add_text_to_window(std::make_shared<Text>("       MaxStorage   Cost(M)", rect, WINDOWCONTENT, text_color, false));
+        menu_item_window->add_text_to_window("       MaxStorage   Cost(M)", rect, WINDOWCONTENT, text_color);
 
         rect.x += 60;
         for (auto i = 0; i < RESOURCES_TOTAL; ++i)
         {
             rect.y += 20;
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(storage_limit.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false));
+            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(storage_limit.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
             rect.x += 70;
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(mConstruction_costs.get_resource(RESOURCETYPES(i))))+ "(" +Text::remove_trailing_zeros(std::to_string(maintenance.get_resource(RESOURCETYPES(i)))) + ")", rect, WINDOWCONTENT, text_color, false));
+            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mConstruction_costs.get_resource(RESOURCETYPES(i))))+ "(" +Text::remove_trailing_zeros(std::to_string(maintenance.get_resource(RESOURCETYPES(i)))) + ")", rect, WINDOWCONTENT, text_color);
             rect.x -= 70;
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
         }
         rect = { menu_item_window->get_dim().x + 220, menu_item_window->get_dim().y + 40, 0, 0 };
 
@@ -102,30 +99,30 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
             const auto range = gConfig_file->value(building_stats_section, "range");
             const auto attack_speed = gConfig_file->value(building_stats_section, "attackspeed");
 
-            menu_item_window->add_text_to_window(std::make_shared<Text>("Dmg: ", rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window("Dmg: ", rect, WINDOWS, text_color);
             rect.y += 30;
-            menu_item_window->add_text_to_window(std::make_shared<Text>("AS: ", rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window("AS: ", rect, WINDOWS, text_color);
             rect.y += 30;
-            menu_item_window->add_text_to_window(std::make_shared<Text>("Range: ", rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window("Range: ", rect, WINDOWS, text_color);
             rect.y += 30;
-            menu_item_window->add_text_to_window(std::make_shared<Text>("Damage dist: ", rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window("Damage dist: ", rect, WINDOWS, text_color);
             rect.y += 30;
             //damage distribution text
             menu_item_window->add_text_to_window(
-                std::make_shared<Text>(
+                
                       "P: " + Text::remove_trailing_zeros(std::to_string(damage.get_phys_dmg()))
                     + " M: " + Text::remove_trailing_zeros(std::to_string(damage.get_magic_dmg()))
                     + " F: " + Text::remove_trailing_zeros(std::to_string(damage.get_fire_dmg()))
                     + " W: " + Text::remove_trailing_zeros(std::to_string(damage.get_water_dmg()))
-                    + " E: " + Text::remove_trailing_zeros(std::to_string(damage.get_elec_dmg())), rect, WINDOWS, text_color, false));
+                    + " E: " + Text::remove_trailing_zeros(std::to_string(damage.get_elec_dmg())), rect, WINDOWS, text_color);
             rect.x = menu_item_window->get_dim().x + 280;
             rect.y = menu_item_window->get_dim().y + 40;
 
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(damage.get_dmg_sum())), rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(damage.get_dmg_sum())), rect, WINDOWS, text_color);
             rect.y += 30;
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(attack_speed)), rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(attack_speed)), rect, WINDOWS, text_color);
             rect.y += 30;
-            menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(range)), rect, WINDOWS, text_color, false));
+            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(range)), rect, WINDOWS, text_color);
 
             if (kind_of_object == "aoetower")
             {
@@ -133,9 +130,9 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
                 rect.x = menu_item_window->get_dim().x + 220;
                 rect.y = menu_item_window->get_dim().y + 160;
 
-                menu_item_window->add_text_to_window(std::make_shared<Text>("Explosive Radius: ", rect, WINDOWCONTENT, text_color, false));
+                menu_item_window->add_text_to_window("Explosive Radius: ", rect, WINDOWCONTENT, text_color);
                 rect.x += 130;
-                menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(explosive_radius)), rect, WINDOWCONTENT, text_color, false));
+                menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(explosive_radius)), rect, WINDOWCONTENT, text_color);
             }
         }
         else if (kind_of_object == "industrialbuilding")
@@ -150,14 +147,14 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
                 gConfig_file->value_or_zero(building_stats_section, "foodproduction")
             };
 
-            menu_item_window->add_text_to_window(std::make_shared<Text>("Production", rect, WINDOWCONTENT, text_color, false));
+            menu_item_window->add_text_to_window("Production", rect, WINDOWCONTENT, text_color);
 
             for (auto i = 0; i < RESOURCES_TOTAL; ++i)
             {
                 rect.y += 20;
-                menu_item_window->add_text_to_window(std::make_shared<Text>(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color, false));
+                menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
                 rect.x += 60;
-                menu_item_window->add_text_to_window(std::make_shared<Text>(Text::remove_trailing_zeros(std::to_string(produce.get_display_resources().get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color, false));
+                menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(produce.get_display_resources().get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
                 rect.x -= 60;
             }
         }

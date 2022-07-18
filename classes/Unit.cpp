@@ -125,36 +125,33 @@ double Unit::get_rotation_angle() const
 
 std::shared_ptr<Window> Unit::create_window()
 {
-    SDL_Rect rect{ 1530,804, 200, 220 };
+    SDL_Rect rect{ 1530, 804, 200, 220 };
 
     auto window = std::make_shared<Window>(rect, WINDOWS, WINDOWS);
 
     const SDL_Color text_color{ 0,0,0,0 };
 
-    SDL_Rect dest{ window->get_dim().x + 20,window->get_dim().y + 20, 0,0 };
+    SDL_Rect dest{ 20, 20, 0, 0 };
 
     dest.x += 5;
-    window->add_text_to_window(std::make_shared<Text>(mName, dest, WINDOWCONTENT, text_color, false));
+    window->add_text_to_window(mName, dest, WINDOWCONTENT, text_color);
     dest.y += 40;
-    window->add_text_to_window(std::make_shared<Text>("Health", dest, WINDOWCONTENT, text_color, false));
+    window->add_text_to_window("Health", dest, WINDOWCONTENT, text_color);
     dest.x += 95;
-    mHealth_value = std::make_shared<Text>(std::to_string(int(mDefense->get_health())) + "/" + std::to_string(int(mDefense->get_full_health())), dest, WINDOWCONTENT, text_color, false);
-    window->add_text_to_window(mHealth_value);
+    mHealth_value = window->add_text_to_window(std::to_string(int(mDefense->get_health())) + "/" + std::to_string(int(mDefense->get_full_health())), dest, WINDOWCONTENT, text_color);
     dest.x -= 100;
     for (auto i = 0; i < mDefense_values.size(); i++)
     {
         dest.y += 20;
-        window->add_text_to_window(std::make_shared<Text>(Defense::get_name(RESISTANCES(i)), dest, WINDOWCONTENT, text_color, false));
+        window->add_text_to_window(Defense::get_name(RESISTANCES(i)), dest, WINDOWCONTENT, text_color);
         dest.x += 100;
-        mDefense_values[i] = std::make_shared<Text>(std::to_string(int(mDefense->get_resistance(RESISTANCES(i)))), dest, WINDOWCONTENT, text_color, false);
+        mDefense_values[i] = window->add_text_to_window(std::to_string(int(mDefense->get_resistance(RESISTANCES(i)))), dest, WINDOWCONTENT, text_color);
         dest.x -= 100;
-        window->add_text_to_window(mDefense_values[i]);
     }
     dest.y += 20;
-    window->add_text_to_window(std::make_shared<Text>("Move Speed", dest, WINDOWCONTENT, text_color, false));
+    window->add_text_to_window("Move Speed", dest, WINDOWCONTENT, text_color);
     dest.x += 100;
-    mMove_speed_value = std::make_shared<Text>(std::to_string(int(mMove_speed)), dest, WINDOWCONTENT, text_color, false);
-    window->add_text_to_window(mMove_speed_value);
+    mMove_speed_value = window->add_text_to_window(std::to_string(int(mMove_speed)), dest, WINDOWCONTENT, text_color);
 
     return window;
 }

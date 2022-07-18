@@ -17,7 +17,7 @@ BigUpgrade::BigUpgrade(const std::string& obj_name, const std::string& upgrade_s
 
     std::string upgrade_name;
     upgrade_name.assign(gConfig_file->value(obj_name + "/upgrade" + upgrade_section, "name"));
-    mUpgrade_name = new Text(upgrade_name, dim_of_upgrade_name_texture, WINDOWCONTENT, text_color, true);
+    mUpgrade_name = std::make_shared<Text>(upgrade_name, dim_of_upgrade_name_texture, WINDOWCONTENT, text_color, true);
 
     const auto y_difference = 30; // y difference between upgrade name and upgrade description
     auto dim_of_upgrade_description = dim_of_upgrade_name_texture;
@@ -25,7 +25,7 @@ BigUpgrade::BigUpgrade(const std::string& obj_name, const std::string& upgrade_s
 
     std::string upgrade_description;
     upgrade_description.assign(gConfig_file->value(obj_name + "/upgrade" + upgrade_section, "description"));
-    mUpgrade_description = new Text(upgrade_description, dim_of_upgrade_description, WINDOWCONTENT, text_color, true);
+    mUpgrade_description = std::make_shared<Text>(upgrade_description, dim_of_upgrade_description, WINDOWCONTENT, text_color, true);
     mUpgrade_description->set_rendering_enabled(false);
 }
 
@@ -33,8 +33,6 @@ BigUpgrade::~BigUpgrade()
 {
     delete mBig_upgrade_button;
     delete mShow_more_button;
-    delete mUpgrade_name;
-    delete mUpgrade_description;
 }
 
 void BigUpgrade::shift(int v)
@@ -61,7 +59,7 @@ ShowMoreButton* BigUpgrade::get_show_more_button() const
     return mShow_more_button;
 }
 
-Text* BigUpgrade::get_upgrade_name() const
+std::shared_ptr<Text> BigUpgrade::get_upgrade_name() const
 {
     return mUpgrade_name;
 }
@@ -85,7 +83,4 @@ void BigUpgrade::set_upgrade_description_shown(const bool v) const
 {
     mUpgrade_description->set_rendering_enabled(v);
 }
-
-
-
  
