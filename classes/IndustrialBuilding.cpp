@@ -44,7 +44,6 @@ void IndustrialBuilding::on_tick()
 {
     mIdle = !mCurrent_resources.sub_possible(mMaintenance);
     Building::on_tick();
-    if (mBuilding_window != nullptr) update_building_window();
 }
 
 BUILDINGTYPE IndustrialBuilding::get_building_type()

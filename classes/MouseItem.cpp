@@ -44,7 +44,7 @@ void MouseItem::render()
     dest.y = 0;
     dest.w = 1280;
     dest.h = 1024;
-    gLayer_handler->render_to_layer(this->mGrid_sprite, LAYERS::BUILDINGS, {}, dest);
+    gLayer_handler->render_to_layer(this->mGrid_sprite, LAYERS::BUILDINGOVERLAY, {}, dest);
 }
 
 

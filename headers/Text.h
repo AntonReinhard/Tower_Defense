@@ -22,6 +22,9 @@ public:
     
     static std::string remove_trailing_zeros(std::string s);
 
+    void set_updated(bool updated = true);
+    bool was_updated();
+
 private:
     LTexture* mText_texture;
 
@@ -30,5 +33,8 @@ private:
     SDL_Color mText_color;
 
     SDL_Rect mDim;
+
+    //flag indicating the content of the text has changed
+    bool mUpdated;
 };
 

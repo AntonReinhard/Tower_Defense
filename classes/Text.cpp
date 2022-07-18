@@ -3,7 +3,11 @@
 #include "LayerHandler.h"
 
 Text::Text(const std::string& text, const SDL_Rect dim, const LAYERS layer, const SDL_Color text_color, const bool rendering_enabled)
-    : Renderable(layer), mText_texture(new LTexture()), mText(text), mDim(dim)
+    : Renderable(layer)
+    , mText_texture(new LTexture())
+    , mText(text)
+    , mDim(dim)
+    , mUpdated(true)
 {
     mText_color = text_color;
     mText_texture->load_from_rendered_text(text, mText_color);
@@ -46,6 +50,7 @@ void Text::set_text(const std::string& text)
         mText_texture->load_from_rendered_text(text, mText_color);
         mDim.w = mText_texture->get_width();
         mDim.h = mText_texture->get_height();
+        set_updated();
     }
 }
 
@@ -69,4 +74,14 @@ std::string Text::remove_trailing_zeros(std::string s)
     }
 
     return result;
+}
+
+void Text::set_updated(const bool updated) 
+{
+    mUpdated = updated;
+}
+
+bool Text::was_updated()
+{
+    return mUpdated;
 }

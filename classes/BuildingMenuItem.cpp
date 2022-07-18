@@ -77,17 +77,18 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
         rect.y += 20;
         menu_item_window->add_text_to_window("       MaxStorage   Cost(M)", rect, WINDOWCONTENT, text_color);
 
-        rect.x += 60;
+        rect.x += 10;
         for (auto i = 0; i < RESOURCES_TOTAL; ++i)
         {
             rect.y += 20;
             menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(storage_limit.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+            rect.x += 40;
+            menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
             rect.x += 70;
             menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mConstruction_costs.get_resource(RESOURCETYPES(i))))+ "(" +Text::remove_trailing_zeros(std::to_string(maintenance.get_resource(RESOURCETYPES(i)))) + ")", rect, WINDOWCONTENT, text_color);
-            rect.x -= 70;
-            menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
+            rect.x -= 110;
         }
-        rect = { menu_item_window->get_dim().x + 220, menu_item_window->get_dim().y + 40, 0, 0 };
+        rect = { 220, 40, 0, 0 };
 
         if (kind_of_object == "onhittower" || kind_of_object == "aoetower" || kind_of_object == "statictargettower")
         {
@@ -154,7 +155,7 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
                 rect.y += 20;
                 menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
                 rect.x += 60;
-                menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(produce.get_display_resources().get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+                menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(produce.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
                 rect.x -= 60;
             }
         }

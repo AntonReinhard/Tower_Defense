@@ -10,7 +10,11 @@
 #include "Game.h"
 #include "MouseHandler.h"
 
-Level::Level(std::string level_number, Game* game) : mLevel_number(std::move(level_number)), mMain_building(), mDeleting(false), mGame(game)
+Level::Level(std::string level_number, Game* game) 
+    : mLevel_number(std::move(level_number))
+    , mMain_building()
+    , mDeleting(false)
+    , mGame(game)
 {
     //mLevel_number = level_number;
     const auto level_section = "level" + mLevel_number;
@@ -41,30 +45,18 @@ Level::Level(std::string level_number, Game* game) : mLevel_number(std::move(lev
             this->mMap_buildings[x][y] = nullptr;
         }
     }
-    
-    //has to happen after mMap_buildings was initialized
-    SDL_Point warehouse_coord;
-    warehouse_coord.x = TILE_WIDTH * gConfig_file->value(level_section, "main_building_x");
-    warehouse_coord.y = TILE_HEIGHT * gConfig_file->value(level_section, "main_building_y");
-    mMain_building = new Warehouse(gConfig_file->value(level_section, "main_building_name"), warehouse_coord, this, BUILDINGS, BUILDINGS);
 
     mMenu = new Menu(this, LAYERS::BACKGROUND);
 
     mMap = new Map("level/" + std::string(gConfig_file->value(level_section, "map_file")));
 
-    const auto r = Resources(
-        gConfig_file->value(level_section, "gold"),
-        gConfig_file->value(level_section, "wood"),
-        gConfig_file->value(level_section, "stone"),
-        gConfig_file->value(level_section, "iron"),
-        gConfig_file->value(level_section, "energy"),
-        gConfig_file->value(level_section, "water"),
-        gConfig_file->value(level_section, "food")
-    );
-    
-    mMain_building->add_resources(r);
-    //can't destroy the main building
-    mMain_building->set_destroyable(false);
+    //has to happen after mMap_buildings was initialized
+    SDL_Point warehouse_coord;
+    warehouse_coord.x = TILE_WIDTH * gConfig_file->value(level_section, "main_building_x");
+    warehouse_coord.y = TILE_HEIGHT * gConfig_file->value(level_section, "main_building_y");
+
+    set_main_building(new Warehouse(gConfig_file->value(level_section, "main_building_name"), warehouse_coord, this, BUILDINGS, BUILDINGS));
+
 }
 
 Level::~Level()
@@ -239,6 +231,11 @@ void Level::set_main_building(Warehouse* main_building)
     this->mMain_building = main_building;
     this->mMain_building->get_current_resources().set_empty();
     this->mMain_building->get_current_resources().add(this->mStart_resources);
+
+    //can't destroy the main building
+    mMain_building->set_destroyable(false);
+
+    mMenu->set_building_window(mMain_building->create_window());
 }
 
 Menu* Level::get_menu() const

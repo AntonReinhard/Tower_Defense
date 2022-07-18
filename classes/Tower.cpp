@@ -190,7 +190,6 @@ void Tower::on_tick()
 
 void Tower::on_click(const int mouse_x, const int mouse_y)
 {
-    mLevel->get_menu()->set_building_window(create_window());
     Building::on_click(mouse_x, mouse_y);
 }
 
@@ -312,7 +311,7 @@ std::shared_ptr<Window> Tower::create_window()
     Building::create_window();
 
     //little upgrade buttons
-    SDL_Rect dest{ mBuilding_window->get_dim().x + 400, mBuilding_window->get_dim().y + 140,26, 26 };
+    SDL_Rect dest{ mBuilding_window->get_dim().x + 400, mBuilding_window->get_dim().y + 140, 26, 26 };
     mUpgrade_damage_button = std::make_unique<UpgradeButton>("testbutton", dest, this, mName, "Damage", WINDOWCONTENT, WINDOWCONTENT, mBuilding_window.get(), BUILDINGWINDOWBUTTONIDS::UPGRADE_DAMAGE_BUTTON);
     dest.x += 56;
     mUpgrade_attackspeed_button = std::make_unique<UpgradeButton>("testbutton", dest, this, mName, "Attackspeed", WINDOWCONTENT, WINDOWCONTENT, mBuilding_window.get(), BUILDINGWINDOWBUTTONIDS::UPGRADE_ATTACKSPEED_BUTTON);
@@ -321,7 +320,7 @@ std::shared_ptr<Window> Tower::create_window()
 
     //number of little upgrades displayed
     const SDL_Color text_color = { 0,0,0,0 };
-    dest = { 0, 0, mUpgrade_damage_button->get_dimension().x, mUpgrade_damage_button->get_dimension().y + 30 };
+    dest = { 405, 170, 0, 0 };
     
     mDamage_upgrade_number_texture = mBuilding_window->add_text_to_window(std::to_string(mNumber_of_damage_upgrades), dest, WINDOWCONTENT, text_color);
     dest.x += 56;
@@ -330,7 +329,7 @@ std::shared_ptr<Window> Tower::create_window()
     mRange_upgrade_number_texture = mBuilding_window->add_text_to_window(std::to_string(mNumber_of_attackspeed_upgrades), dest, WINDOWCONTENT, text_color);
 
     //turret stats-text displayed(const)
-    dest.x = 200;
+    dest.x = 210;
     dest.y = 40;
     dest.w = 0;	//setting these to 0 will not scale anything
     dest.h = 0;

@@ -188,7 +188,7 @@ void Resources::set_limit(const Resources& limit)
     this->mLimit = std::make_unique<Resources>(limit);
 }
 
-const std::optional<Resources>& Resources::get_limit() const
+std::optional<Resources> Resources::get_limit() const
 {
     if (mLimit == nullptr) return {};
     return *mLimit;

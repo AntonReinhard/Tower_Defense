@@ -51,7 +51,7 @@ public:
     Resources operator/(const double &d) const;
     //sets new limit, current resources will not change
     void set_limit(const Resources& limit);
-    const std::optional<Resources>& get_limit() const;
+    std::optional<Resources> get_limit() const;
     bool has_limit() const;
 
     //transfers all the resources it can into this object taking into account the limit

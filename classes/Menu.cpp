@@ -143,7 +143,7 @@ void Menu::add_menu_item(BuildingMenuItem* building_menu_item, const BUILDINGTYP
 
 void Menu::set_building_window(const std::shared_ptr<Window>& building_window)
 {
-    mBuilding_window.reset();
+    if (mBuilding_window) mBuilding_window->set_rendering_enabled(false);
     mBuilding_window = building_window;
     mBuilding_window->set_rendering_enabled(true);
     mBuilding_window->enable();
@@ -156,7 +156,7 @@ std::shared_ptr<Window> Menu::get_building_window() const
 
 void Menu::set_unit_window(const std::shared_ptr<Window>& unit_window)
 {
-    mUnit_window.reset();
+    if (mUnit_window) mUnit_window->set_rendering_enabled(false);
     mUnit_window = unit_window;
     mUnit_window->set_rendering_enabled(true);
     mUnit_window->enable();
@@ -169,7 +169,7 @@ std::shared_ptr<Window> Menu::get_unit_window() const
 
 void Menu::set_menu_item_window(const std::shared_ptr<Window>& menu_item_window)
 {
-    mMenu_item_window.reset();
+    if (mMenu_item_window) mMenu_item_window->set_rendering_enabled(false);
     mMenu_item_window = menu_item_window;
     mMenu_item_window->set_rendering_enabled(true);
     mMenu_item_window->enable();

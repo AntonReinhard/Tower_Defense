@@ -279,11 +279,15 @@ void Building::on_tick()
         mCurrent_resources.add(mProduce);
     }
     mElapsed_ticks++;
+
+
+    if (mBuilding_window != nullptr) update_building_window();
 }
 
 void Building::on_click(int mouse_x, int mouse_y)
 {
-
+    if (mBuilding_window == nullptr) create_window();
+    mLevel->get_menu()->set_building_window(mBuilding_window);
 }
 
 std::shared_ptr<Window> Building::create_window()
@@ -308,18 +312,19 @@ std::shared_ptr<Window> Building::create_window()
 
     window->add_text_to_window(mName, rect, WINDOWCONTENT, text_color);
     rect.y += 20;
-    window->add_text_to_window("            Storage    Main", rect, WINDOWCONTENT, text_color);
+    window->add_text_to_window(" Storage           Main", rect, WINDOWCONTENT, text_color);
 
-    rect.x += 60;
+    rect.x += 10;
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
         rect.y += 20;
         mStorage_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_display_resources().get_resource(RESOURCETYPES(i))))
             + "/" + Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_limit()->get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
-        rect.x += 90;
+        rect.x += 95;
         mMaintenance_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+        rect.x += 30;
         window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
-        rect.x -= 90;
+        rect.x -= 125;
     }
 
     mBuilding_window = window;

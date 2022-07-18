@@ -43,8 +43,16 @@ void Window::render()
 {
     gLayer_handler->render_to_layer(mWindow_texture, WINDOWS, {}, mDim);
 
-    if (mRerender) update_text_texture();
     if (mTexts.empty()) return;
+
+    for (auto& text : mTexts) {
+        if (text->was_updated()) {
+            mRerender = true;
+            break;
+        }
+    }
+
+    if (mRerender) update_text_texture();
 
     gLayer_handler->render_to_layer(mText_texture, WINDOWCONTENT, {}, mDim);
 }
@@ -136,7 +144,7 @@ void Window::update_text_texture()
     // set blend modes to create transparent texture to render text on
     SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
     mText_texture->set_blend_mode(SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(gRenderer, 0x00, 0xFF, 0xFF, 0x40);
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0x00);
     SDL_RenderFillRect(gRenderer, nullptr);
 
     SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
@@ -147,6 +155,9 @@ void Window::update_text_texture()
     {
         dest = text->get_dimensions();
         text->get_texture()->render(&dest);
+
+        // rendered it, reset flag
+        text->set_updated(false);
     }
 
     SDL_SetRenderTarget(gRenderer, nullptr);

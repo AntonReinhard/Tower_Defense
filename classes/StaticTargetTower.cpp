@@ -14,7 +14,6 @@ void StaticTargetTower::create_shot(Enemy& enemy)
 
 void StaticTargetTower::on_tick()
 {
-    if (mBuilding_window != nullptr) update_building_window();
     Tower::on_tick();
 }
 

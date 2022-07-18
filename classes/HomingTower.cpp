@@ -15,7 +15,6 @@ void HomingTower::create_shot(Enemy& enemy)
 
 void HomingTower::on_tick()
 {
-    update_building_window();
     Tower::on_tick();
 }
 

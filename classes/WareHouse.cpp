@@ -9,15 +9,10 @@ Warehouse::Warehouse(std::string logistics_building_name, const SDL_Point coords
     for (auto i = 0; i < RESOURCES_TOTAL; i++) {
         mProducing[RESOURCETYPES(i)] = CONSUMING;
     }
-    
-    //Warehouse Window is always shown
-    Building::create_window();
-    mBuilding_window->set_rendering_enabled(true);
 }
 
 void Warehouse::on_tick()
 {
-    update_building_window();
     Building::on_tick();
 }
 
