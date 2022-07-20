@@ -29,12 +29,8 @@ Menu::Menu(Level *level, const LAYERS render_layer)
         = new Button("ResourceButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::INDUSTRIAL_BUILDING);
 
     dim.x = 1500;
-    mButtons[BUILDINGTYPE::WAREHOUSE]
-        = new Button("BuildingsButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::WAREHOUSE);
-
-    dim.x = 1600;
     mButtons[BUILDINGTYPE::STREET]
-        = new Button("LogisticsButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::STREET);
+        = new Button("ResourceButton", dim, this, BUILDINGS, BUILDINGS, BUILDINGTYPE::STREET);
 
 
     for (auto i = 0; i < BUILDINGTYPE::BUILDINGTYPES_TOTAL; i++) {
@@ -125,8 +121,13 @@ void Menu::sort_items_into_menu()
                 break;
             }
             name_of_object.assign(gConfig_file->value(types.at(j), std::to_string(i)));
-            const auto new_item = new BuildingMenuItem(name_of_object, mLevel, coords, WINDOWCONTENT, WINDOWCONTENT);
-            this->add_menu_item(new_item, BUILDINGTYPE(j));
+            //checks if building is available in this level
+            if(std::find(mLevel->get_available_buildings().begin(), mLevel->get_available_buildings().end(), name_of_object) != mLevel->get_available_buildings().end())
+            {
+                //adds building-menu-item to level
+                const auto new_item = new BuildingMenuItem(name_of_object, mLevel, coords, WINDOWCONTENT, WINDOWCONTENT);
+                this->add_menu_item(new_item, BUILDINGTYPE(j));
+            }
         }
     }
 }

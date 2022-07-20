@@ -42,6 +42,9 @@ public:
 
     Menu* get_menu() const;
     Map* get_map() const;
+
+    std::vector<std::string>& get_available_buildings();
+    std::vector<std::string>& get_available_upgrades();
     
 private:
     std::string mLevel_number;

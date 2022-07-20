@@ -166,10 +166,16 @@ void Building::update_great_upgrades()
         const auto y_difference = -160; // how much the Show-More-Button is away from the Big-Upgrade-Button on the y-Axis
         button_dim.y += gap_between_two_upgrades;
         const auto upgrade_section = get_building_level() + std::to_string(i);
-        if (!gConfig_file->value_exists(get_name() + "/upgrade" + upgrade_section, "exists"))
+        //check if upgrade exists
+        //if upgrade exists, check if it is available in this level 
+        if (!gConfig_file->value_exists(get_name() + "/upgrade" + upgrade_section, "exists") || 
+            std::find(mLevel->get_available_upgrades().begin(), mLevel->get_available_upgrades().end(),
+            (std::string)gConfig_file->value(this->get_name() + "/upgrade" + upgrade_section, "name")) ==
+            mLevel->get_available_upgrades().end())
         {
             break;
         }
+        
         const auto big_upgrade_button = new UpgradeButton("testbutton", button_dim, this, mName, upgrade_section, WINDOWCONTENT, WINDOWCONTENT, mBuilding_window.get(), UPGRADE_BUTTON);
         auto show_more_button = new ShowMoreButton("testbutton", button_dim, this, WINDOWCONTENT, WINDOWCONTENT, mBuilding_window.get(), SHOW_MORE_BUTTON);
         show_more_button->add_x_dimension(y_difference);

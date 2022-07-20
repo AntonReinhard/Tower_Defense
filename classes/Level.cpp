@@ -1,4 +1,5 @@
 #include <utility>
+#include <sstream>
 
 #include "Level.h"
 #include "Building.h"
@@ -20,6 +21,25 @@ Level::Level(std::string level_number, Game* game)
     const auto level_section = "level" + mLevel_number;
     mLives = gConfig_file->value_or_zero(level_section, "lives");
 
+    //add available buildings as strings in vector
+    std::string s = gConfig_file->value(level_section, "available_buildings");
+    std::stringstream available_buildings(s);
+    while (available_buildings.good())
+    {
+        std::string building;
+        std::getline(available_buildings, building, ',');
+        mAvailable_buildings.push_back(building);
+    }
+    //add available building upgrades
+    std::string s1 = gConfig_file->value(level_section, "available_upgrades");
+    std::stringstream available_upgrades(s1);
+    while (available_upgrades.good())
+    {
+        std::string upgrade;
+        std::getline(available_upgrades, upgrade, ',');
+        mAvailable_upgrades.push_back(upgrade);
+    }
+    
     //set the start-resources in this level
     mStart_resources.set_resources(gConfig_file->value_or_zero("level" + mLevel_number, "gold"),
         gConfig_file->value_or_zero(level_section, "wood"),
@@ -54,6 +74,7 @@ Level::Level(std::string level_number, Game* game)
     SDL_Point warehouse_coord;
     warehouse_coord.x = TILE_WIDTH * gConfig_file->value(level_section, "main_building_x");
     warehouse_coord.y = TILE_HEIGHT * gConfig_file->value(level_section, "main_building_y");
+    );
 
     set_main_building(new Warehouse(gConfig_file->value(level_section, "main_building_name"), warehouse_coord, this, BUILDINGS, BUILDINGS));
 
@@ -247,3 +268,15 @@ Map* Level::get_map() const
 {
     return mMap;
 }
+
+std::vector<std::string>& Level::get_available_buildings()
+{
+    return mAvailable_buildings;
+}
+
+std::vector<std::string>& Level::get_available_upgrades()
+{
+    return mAvailable_upgrades;
+}
+
+
