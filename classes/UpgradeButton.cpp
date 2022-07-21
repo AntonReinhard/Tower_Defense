@@ -23,22 +23,11 @@ UpgradeButton::UpgradeButton(const std::string& button_name, SDL_Rect dim, Butto
     }
     mUpgrade_window = new Window(dest, WINDOWS, WINDOWS);
 
-    Resources upgrade_costs{ 
-        gConfig_file->value_or_zero(building_upgrade_section, "goldcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "woodcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "stonecosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "ironcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "energycosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "watercosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "foodcosts") };
-    Resources upgrade_maintenance{ 
-        gConfig_file->value_or_zero(building_upgrade_section, "goldMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "woodMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "stoneMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "ironMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "energyMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "waterMain"),
-        gConfig_file->value_or_zero(building_upgrade_section, "foodMain") };
+    Resources upgrade_costs;
+    upgrade_costs.read_from_config(building_upgrade_section, "%scosts");
+
+    Resources upgrade_maintenance;
+    upgrade_maintenance.read_from_config(building_upgrade_section, "%sMain");
 
     SDL_Color text_color = { 0,0,0,0 };
     dest = { 20, mWindow->get_dim().h - 180, 0, 0 };

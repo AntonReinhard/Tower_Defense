@@ -41,13 +41,7 @@ Level::Level(std::string level_number, Game* game)
     }
     
     //set the start-resources in this level
-    mStart_resources.set_resources(gConfig_file->value_or_zero("level" + mLevel_number, "gold"),
-        gConfig_file->value_or_zero(level_section, "wood"),
-        gConfig_file->value_or_zero(level_section, "stone"),
-        gConfig_file->value_or_zero(level_section, "iron"),
-        gConfig_file->value_or_zero(level_section, "energy"),
-        gConfig_file->value_or_zero(level_section, "water"),
-        gConfig_file->value_or_zero(level_section, "food"));
+    mStart_resources.read_from_config("level" + mLevel_number, "%s");
 
     mWave_number = 1;
     const auto first_wave = new Wave(std::to_string(mWave_number), this);
@@ -74,10 +68,8 @@ Level::Level(std::string level_number, Game* game)
     SDL_Point warehouse_coord;
     warehouse_coord.x = TILE_WIDTH * gConfig_file->value(level_section, "main_building_x");
     warehouse_coord.y = TILE_HEIGHT * gConfig_file->value(level_section, "main_building_y");
-    );
 
     set_main_building(new Warehouse(gConfig_file->value(level_section, "main_building_name"), warehouse_coord, this, BUILDINGS, BUILDINGS));
-
 }
 
 Level::~Level()

@@ -32,45 +32,11 @@ Building::Building(std::string building_name, const SDL_Point coords, Level* lev
     mSprite_dimensions.x = 0;
     mSprite_dimensions.y = 0;
 
-    //set the maintenance costs of the building
-    mMaintenance.set_resources(gConfig_file->value_or_zero(building_stats_section, "goldMain"),
-        gConfig_file->value_or_zero(building_stats_section, "woodMain"),
-        gConfig_file->value_or_zero(building_stats_section, "stoneMain"),
-        gConfig_file->value_or_zero(building_stats_section, "ironMain"),
-        gConfig_file->value_or_zero(building_stats_section, "energyMain"),
-        gConfig_file->value_or_zero(building_stats_section, "waterMain"),
-        gConfig_file->value_or_zero(building_stats_section, "foodMain"));
-
-    mConstruction_costs.set_resources(gConfig_file->value_or_zero(building_stats_section, "goldcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "woodcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "stonecosts"),
-        gConfig_file->value_or_zero(building_stats_section, "ironcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "energycosts"),
-        gConfig_file->value_or_zero(building_stats_section, "watercosts"),
-        gConfig_file->value_or_zero(building_stats_section, "foodcosts"));
-
-    const Resources resource_limit{
-        gConfig_file->value_or_zero(building_stats_section, "goldLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "woodLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "stoneLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "ironLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "energyLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "waterLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "foodLimit")
-    };
-
-    //set the resources that are produced per second
-    mProduce.set_resources(gConfig_file->value_or_zero(building_stats_section, "goldproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "woodproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "stoneproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "ironproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "energyproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "waterproduction"),
-        gConfig_file->value_or_zero(building_stats_section, "foodproduction"));
-
-    //building starts without resources
-    mCurrent_resources.set_empty();
-    mCurrent_resources.set_limit(resource_limit);
+    // read all the resources in
+    mCurrent_resources.read_from_config(building_stats_section, nullptr, "%sLimit");
+    mConstruction_costs.read_from_config(building_stats_section, "%scosts");
+    mMaintenance.read_from_config(building_stats_section, "%sMain");
+    mProduce.read_from_config(building_stats_section, "%sproduction");
 
     mBuilding_level = "";
     mCount_of_little_upgrades = 0;
@@ -122,8 +88,8 @@ void Building::update_building_window()
     if (!this->mBuilding_window.get()) return;
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
-        mStorage_values[i]->set_text(Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_display_resources().get_resource(RESOURCETYPES(i))))
-            + "/" + Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_limit()->get_resource(RESOURCETYPES(i)))));
+        mStorage_values[i]->set_text(std::to_string(mCurrent_resources.get_display(RESOURCETYPES(i)))
+            + "/" + std::to_string(std::lround(mCurrent_resources.get_limit(RESOURCETYPES(i)))));
         mMaintenance_values[i]->set_text(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))));
     }
     //changes string if a upgrade button is hovered
@@ -242,23 +208,16 @@ void Building::demolish() const
 
 bool Building::upgrade(const std::string& building_upgrade_section)
 {
-    auto upgrade_cost = Resources(gConfig_file->value_or_zero(building_upgrade_section, "goldcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "woodcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "stonecosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "ironcosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "energycosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "watercosts"),
-        gConfig_file->value_or_zero(building_upgrade_section, "foodcosts"));
+    Resources upgrade_cost;
+    upgrade_cost.read_from_config(building_upgrade_section, "%scosts");
+
     if (mLevel->get_resources().sub(upgrade_cost))
     {
         mConstruction_costs.add(upgrade_cost);
-        auto plus_maintenance = Resources(gConfig_file->value_or_zero(building_upgrade_section, "goldMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "woodMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "stoneMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "ironMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "energyMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "waterMain"),
-            gConfig_file->value_or_zero(building_upgrade_section, "foodMain"));
+
+        Resources plus_maintenance;
+        plus_maintenance.read_from_config(building_upgrade_section, "%sMain");
+
         mMaintenance.add(plus_maintenance);
         return true;
     }
@@ -324,8 +283,8 @@ std::shared_ptr<Window> Building::create_window()
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
         rect.y += 20;
-        mStorage_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_display_resources().get_resource(RESOURCETYPES(i))))
-            + "/" + Text::remove_trailing_zeros(std::to_string(mCurrent_resources.get_limit()->get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+        mStorage_values[i] = window->add_text_to_window(std::to_string(mCurrent_resources.get_display(RESOURCETYPES(i)))
+            + "/" + std::to_string(std::lround(mCurrent_resources.get_limit(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
         rect.x += 95;
         mMaintenance_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
         rect.x += 30;
@@ -390,42 +349,13 @@ void Building::add_resources(const Resources& r)
     this->mCurrent_resources.add(r);
 }
 
-bool Building::transfer_resources_in(Resources& r)
-{
-    return this->mCurrent_resources.transfer(r);
-}
-
-bool Building::transfer_resources_out(Resources& r)
-{
-    return r.transfer(this->mCurrent_resources);
-}
-
 void Building::transfer_resources(Resources& r, Production& production, const bool reverse)
 {
-    for (auto i = 0; i < RESOURCES_TOTAL; i++)
-    {
-        switch (production.at(RESOURCETYPES(i)))
-        {
-        case NONE:
-            //do nothing
-            break;
-        case PRODUCING:
-            //if not reversed, transfer into r
-            if (!reverse)
-                r.transfer(RESOURCETYPES(i), mCurrent_resources.get_resource(RESOURCETYPES(i)));
-            else
-                mCurrent_resources.transfer(RESOURCETYPES(i), r.get_resource(RESOURCETYPES(i)));
-            break;
-        case CONSUMING:
-            //if not reversed, transfer into building
-            if (!reverse)
-                mCurrent_resources.transfer(RESOURCETYPES(i), r.get_resource(RESOURCETYPES(i)));
-            else
-                r.transfer(RESOURCETYPES(i), mCurrent_resources.get_resource(RESOURCETYPES(i)));
-            break;
-        default:
-            ;	//shouldn't get here
-        }
+    if (!reverse) {
+        mCurrent_resources.transfer(r, production);
+    }
+    else {
+        r.transfer(mCurrent_resources, production);
     }
 }
 

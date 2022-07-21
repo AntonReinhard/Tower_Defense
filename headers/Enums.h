@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+
+static constexpr double EPSILON = 0.0001;
+
 enum BUILDINGWINDOWBUTTONIDS {
     DEMOLISH_BUTTON,
     UPGRADE_BUTTON,

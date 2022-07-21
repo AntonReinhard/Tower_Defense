@@ -58,13 +58,6 @@ public:
     const Resources& get_produce() const;
     void set_produce(const Resources& produce);
 
-    //puts resources into this building from r
-    //returns true if r is empty afterwards
-    bool transfer_resources_in(Resources& r);
-    //puts resources into r from this building
-    //returns true if this building is empty afterwards
-    bool transfer_resources_out(Resources& r);
-
     void transfer_resources(Resources& r, Production& production, bool reverse);
 
     //give window for building to the menu, so it can be shown there

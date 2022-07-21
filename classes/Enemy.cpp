@@ -48,13 +48,7 @@ Enemy::Enemy(const std::string& monster_name, const int way, Level* level, const
     mHealth_bar_dimensions.w = gConfig_file->value(healthbar_sprite_section, "image_width");
     mHealth_bar_dimensions.h = gConfig_file->value(healthbar_sprite_section, "image_height");
 
-    mLoot_resources.set_resources(gConfig_file->value_or_zero(monster_stats_section, "goldloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "woodloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "stoneloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "ironloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "energyloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "waterloot"),
-        gConfig_file->value_or_zero(monster_stats_section, "foodloot"));
+    mLoot_resources.read_from_config(monster_stats_section, "%sloot");
 }
 
 Enemy::~Enemy() = default;
@@ -162,7 +156,7 @@ bool Enemy::take_damage(const Damage& dmg)
     if(mDefense->take_damage(dmg) && !this->is_dead())
     {
         mDead = true;
-        mLevel->get_resources()->add(mLoot_resources);
+        mLevel->get_resources().add(mLoot_resources);
         this->on_death();
         return true;
     }

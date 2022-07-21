@@ -22,17 +22,8 @@ Carriage::Carriage(const std::string& unit_name, Level* level, LAYERS render_lay
     }
 
     const auto section = unit_name + "/stats";
-    Resources limit;
-    limit.set_resources(
-        gConfig_file->value_or_zero(section, "goldcapacity"),
-        gConfig_file->value_or_zero(section, "woodcapacity"),
-        gConfig_file->value_or_zero(section, "stonecapacity"),
-        gConfig_file->value_or_zero(section, "ironcapacity"),
-        gConfig_file->value_or_zero(section, "energycapacity"),
-        gConfig_file->value_or_zero(section, "watercapacity"),
-        gConfig_file->value_or_zero(section, "foodcapacity"));
-    
-    this->mCurrent_resources.set_limit(limit);
+
+    mCurrent_resources.read_from_config(section, nullptr, "%scapacity");
 
     update_transportation();
 }

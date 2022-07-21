@@ -14,7 +14,7 @@ void IndustrialBuilding::update_building_window()
     Building::update_building_window();
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
-        mProduction_values[i]->set_text(Text::remove_trailing_zeros(std::to_string(mProduce.get_display_resources().get_resource(RESOURCETYPES(i)))));
+        mProduction_values[i]->set_text(std::to_string(mProduce.get_display(RESOURCETYPES(i))));
     }
 }
 
@@ -33,7 +33,7 @@ std::shared_ptr<Window> IndustrialBuilding::create_window()
         mBuilding_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), dest, WINDOWCONTENT, text_color);
 
         dest.x += 60;
-        mProduction_values[i] = mBuilding_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mProduce.get_display_resources().get_resource(RESOURCETYPES(i)))), dest, WINDOWCONTENT, text_color);
+        mProduction_values[i] = mBuilding_window->add_text_to_window(std::to_string(mProduce.get_display(RESOURCETYPES(i))), dest, WINDOWCONTENT, text_color);
         dest.x -= 60;
     }
 
@@ -42,7 +42,7 @@ std::shared_ptr<Window> IndustrialBuilding::create_window()
 
 void IndustrialBuilding::on_tick()
 {
-    mIdle = !mCurrent_resources.sub_possible(mMaintenance);
+    mIdle = !mCurrent_resources.can_sub(mMaintenance);
     Building::on_tick();
 }
 

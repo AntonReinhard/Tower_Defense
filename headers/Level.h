@@ -65,4 +65,9 @@ private:
     Game* mGame;
 
     Menu* mMenu;
+
+    //available buildings in this level
+    std::vector<std::string> mAvailable_buildings;
+    //available building upgrades in this level
+    std::vector<std::string> mAvailable_upgrades;
 };

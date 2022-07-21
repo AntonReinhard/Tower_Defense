@@ -8,6 +8,8 @@
 BuildingMenuItem::BuildingMenuItem(const std::string& name_of_object, Level* level, const SDL_Point coords, LAYERS click_layer, LAYERS render_layer)
     : MenuItem(name_of_object, level, coords, click_layer, render_layer)
 {
+    const auto building_stats_section = mName_of_object + "/stats";
+    mConstruction_costs.read_from_config(building_stats_section, "%scosts");
 }
 
 BuildingMenuItem::~BuildingMenuItem() = default;
@@ -30,33 +32,12 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
 
     //set the construction costs of the building
     const auto building_stats_section = mName_of_object + "/stats";
-    mConstruction_costs.set_resources(gConfig_file->value_or_zero(building_stats_section, "goldcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "woodcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "stonecosts"),
-        gConfig_file->value_or_zero(building_stats_section, "ironcosts"),
-        gConfig_file->value_or_zero(building_stats_section, "energycosts"),
-        gConfig_file->value_or_zero(building_stats_section, "watercosts"),
-        gConfig_file->value_or_zero(building_stats_section, "foodcosts"));
 
-    Resources storage_limit{
-        gConfig_file->value_or_zero(building_stats_section, "goldLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "woodLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "stoneLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "ironLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "energyLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "waterLimit"),
-        gConfig_file->value_or_zero(building_stats_section, "foodLimit")
-    };
+    Resources storage_limit;
+    storage_limit.read_from_config(building_stats_section, "%sLimit");
 
-    Resources maintenance{
-        gConfig_file->value_or_zero(building_stats_section, "goldMain"),
-        gConfig_file->value_or_zero(building_stats_section, "woodMain"),
-        gConfig_file->value_or_zero(building_stats_section, "stoneMain"),
-        gConfig_file->value_or_zero(building_stats_section, "ironMain"),
-        gConfig_file->value_or_zero(building_stats_section, "energyMain"),
-        gConfig_file->value_or_zero(building_stats_section, "waterMain"),
-        gConfig_file->value_or_zero(building_stats_section, "foodMain")
-    };
+    Resources maintenance;
+    maintenance.read_from_config(building_stats_section, "%sMain");
 
     const std::string kind_of_object = gConfig_file->value(mName_of_object + "/menuitem", "kind_of_object");
     SDL_Color text_color = { 0, 0, 0 ,0 };
@@ -138,15 +119,8 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
         }
         else if (kind_of_object == "industrialbuilding")
         {
-            Resources produce{
-                gConfig_file->value_or_zero(building_stats_section, "goldproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "woodproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "stoneproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "ironproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "energyproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "waterproduction"),
-                gConfig_file->value_or_zero(building_stats_section, "foodproduction")
-            };
+            Resources produce;
+            produce.read_from_config(building_stats_section, "%sproduction");
 
             menu_item_window->add_text_to_window("Production", rect, WINDOWCONTENT, text_color);
 

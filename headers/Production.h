@@ -2,12 +2,12 @@
 
 #include "Enums.h"
 
-#include <map>
+#include <array>
 
 class Building;
 
 // a structure storing what the building produces/consumes
-class Production : public std::map<RESOURCETYPES, PRODUCTIONSTATE> {
+class Production : public std::array<PRODUCTIONSTATE, RESOURCES_TOTAL> {
 public:
     Production();
     explicit Production(Building& building);

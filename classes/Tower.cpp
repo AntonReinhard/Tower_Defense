@@ -175,7 +175,7 @@ void Tower::on_tick()
         auto& enemy = *dynamic_cast<Enemy*>(entity);
         if (enemy_in_range(enemy, mRange, mCoords) && !enemy.is_dead())
         {
-            mIdle = !mCurrent_resources.sub_possible(mMaintenance);
+            mIdle = !mCurrent_resources.can_sub(mMaintenance);
             if (mElapsed_ticks % mAttack_cooldown == 0 && !mIdle)
             {
                 create_shot(enemy);
@@ -217,21 +217,16 @@ bool Tower::upgrade(const std::string& tower_upgrade_section)
 bool Tower::upgrade_damage()
 {
     const auto tower_upgrade_section = "Tower/upgradeDamage";
-    if(Building::upgrade(tower_upgrade_section))
+    if (Building::upgrade(tower_upgrade_section))
     {
-        mDamage.add(mDamage.get_phys_dmg()*0.01,
+        mDamage.add(mDamage.get_phys_dmg() * 0.01,
             mDamage.get_magic_dmg() * 0.01,
             mDamage.get_fire_dmg() * 0.01,
             mDamage.get_water_dmg() * 0.01,
             mDamage.get_elec_dmg() * 0.01);
         //mMaintenance->add(mMaintenance.)
-        auto plus_maintenance = Resources(mMaintenance.get_resource(RESOURCETYPES::GOLD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WOOD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::STONE) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::IRON) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::ENERGY) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WATER) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::FOOD) * 0.01);
+        Resources plus_maintenance = mMaintenance / 100.;
+
         mMaintenance.add(plus_maintenance);
         mCount_of_little_upgrades++;
         mNumber_of_damage_upgrades++;
@@ -243,17 +238,12 @@ bool Tower::upgrade_damage()
 bool Tower::upgrade_range()
 {
     const auto tower_upgrade_section = "Tower/upgradeRange";
-    if(Building::upgrade(tower_upgrade_section))
+    if (Building::upgrade(tower_upgrade_section))
     {
         mRange += mRange * 0.01;
-        auto plus_maintenance = Resources(mMaintenance.get_resource(RESOURCETYPES::GOLD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WOOD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::STONE) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::IRON) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::ENERGY) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WATER) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::FOOD) * 0.01);
+        Resources plus_maintenance = mMaintenance / 100.;
         mMaintenance.add(plus_maintenance);
+
         mCount_of_little_upgrades++;
         mNumber_of_range_upgrades++;
         return true;
@@ -264,18 +254,13 @@ bool Tower::upgrade_range()
 bool Tower::upgrade_attack_speed()
 {
     const auto tower_upgrade_section = "Tower/upgradeAttackspeed";
-    if(Building::upgrade(tower_upgrade_section))
+    if (Building::upgrade(tower_upgrade_section))
     {
         mAttack_speed += mAttack_speed * 0.01;
         mAttack_cooldown = int(*gFrame_rate / mAttack_speed);
-        auto plus_maintenance = Resources(mMaintenance.get_resource(RESOURCETYPES::GOLD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WOOD) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::STONE) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::IRON) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::ENERGY) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::WATER) * 0.01,
-            mMaintenance.get_resource(RESOURCETYPES::FOOD) * 0.01);
+        auto plus_maintenance = mMaintenance / 100.;
         mMaintenance.add(plus_maintenance);
+
         mCount_of_little_upgrades++;
         mNumber_of_attackspeed_upgrades++;
         return true;
