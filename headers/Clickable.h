@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-#include "Enums.h"
+#include "Constants.h"
 
 class Clickable
 {

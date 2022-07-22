@@ -1,8 +1,14 @@
 #pragma once
 
+#include <SDL.h>
+
 #include <string>
 
 static constexpr double EPSILON = 0.0001;
+
+static constexpr SDL_Color COLOR_NEUTRAL = { 0, 0, 0 };
+static constexpr SDL_Color COLOR_NEGATIVE = { 232, 13, 13 };
+static constexpr SDL_Color COLOR_POSITIVE = { 49, 238, 0 };
 
 enum BUILDINGWINDOWBUTTONIDS {
     DEMOLISH_BUTTON,

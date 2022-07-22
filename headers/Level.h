@@ -3,7 +3,7 @@
 
 #include "Wave.h"
 #include "Resources.h"
-#include "Enums.h"
+#include "Constants.h"
 #include "Map.h"
 
 class Menu;

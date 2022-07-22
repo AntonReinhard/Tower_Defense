@@ -1,6 +1,6 @@
 #pragma once
 #include "Damage.h"
-#include "Enums.h"
+#include "Constants.h"
 #include <string>
 
 /*

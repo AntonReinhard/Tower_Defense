@@ -2,7 +2,7 @@
 #include "LTexture.h"
 #include "Renderable.h"
 #include "Vector.h"
-#include "Enums.h"
+#include "Constants.h"
 
 class Text 
     : public Renderable

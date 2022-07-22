@@ -386,7 +386,7 @@
     <ClInclude Include="headers\Path.h">
       <Filter>Header Files\Buildings\Logistics buildings</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Enums.h">
+    <ClInclude Include="headers\Constants.h">
       <Filter>Header Files\Data structures</Filter>
     </ClInclude>
     <ClInclude Include="headers\Production.h">
