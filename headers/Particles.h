@@ -1,8 +1,9 @@
 #pragma once
-#include <vector>
 #include "LTexture.h"
 #include "Vector.h"
 #include "Entity.h"
+
+#include <vector>
 
 class Particle :
     public Entity

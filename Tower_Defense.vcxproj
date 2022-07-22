@@ -156,6 +156,7 @@
     <ClCompile Include="classes\MainMenuTab.cpp" />
     <ClCompile Include="classes\OnHitShot.cpp" />
     <ClCompile Include="classes\OnHitTower.cpp" />
+    <ClCompile Include="classes\Shadow.cpp" />
     <ClCompile Include="classes\StaticTargetShot.cpp" />
     <ClCompile Include="classes\StaticTargetTower.cpp" />
     <ClCompile Include="classes\BigUpgrade.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="headers\MainMenuTab.h" />
     <ClInclude Include="headers\OnHitShot.h" />
     <ClInclude Include="headers\OnHitTower.h" />
+    <ClInclude Include="headers\Shadow.h" />
     <ClInclude Include="headers\StaticTargetShot.h" />
     <ClInclude Include="headers\StaticTargetTower.h" />
     <ClInclude Include="headers\BigUpgrade.h" />

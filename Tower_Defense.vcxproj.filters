@@ -279,6 +279,9 @@
     <ClCompile Include="classes\LevelSelectMenu.cpp">
       <Filter>Source Files\Menus\Main Menu</Filter>
     </ClCompile>
+    <ClCompile Include="classes\Shadow.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Game.h">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="headers\LevelSelectMenu.h">
       <Filter>Header Files\Menus\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\Shadow.h">
+      <Filter>Header Files\Animations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "Resources.h"
 #include "Constants.h"
 #include "Map.h"
+#include "Shadow.h"
 
 class Menu;
 class Building;

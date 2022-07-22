@@ -43,10 +43,7 @@ Particle::Particle(const std::string& particle_name, const Vector& pos, const Ve
     mLife_ticks = mTickcount_per_clip * mClips.size();
 }
 
-Particle::~Particle()
-{
-    mClips.clear();
-}
+Particle::~Particle() = default;
 
 void Particle::render()
 {

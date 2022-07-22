@@ -1,6 +1,7 @@
 #pragma once
-#include <vector>
 #include "Renderable.h"
+
+#include <vector>
 
 class RenderableHandler
 {
