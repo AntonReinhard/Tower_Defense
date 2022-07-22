@@ -282,6 +282,9 @@
     <ClCompile Include="classes\Shadow.cpp">
       <Filter>Source Files\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="classes\TextParticle.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Game.h">
@@ -459,6 +462,9 @@
       <Filter>Header Files\Menus\Main Menu</Filter>
     </ClInclude>
     <ClInclude Include="headers\Shadow.h">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\TextParticle.h">
       <Filter>Header Files\Animations</Filter>
     </ClInclude>
   </ItemGroup>

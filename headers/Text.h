@@ -13,6 +13,8 @@ public:
     
     void set_text(const std::string& text);
 
+    void set_opacity(double opacity);
+
     void render() override;
 
     LTexture* get_texture() const;

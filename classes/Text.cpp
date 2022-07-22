@@ -44,7 +44,7 @@ const SDL_Rect& Text::get_dimensions() const
 
 void Text::set_text(const std::string& text)
 {
-    if (text != mText)
+    if (text != mText || !was_updated())
     {
         mText = text;
         mText_texture->load_from_rendered_text(text, mText_color);
@@ -52,6 +52,12 @@ void Text::set_text(const std::string& text)
         mDim.h = mText_texture->get_height();
         set_updated();
     }
+}
+
+void Text::set_opacity(double opacity)
+{
+    mText_color.a = std::lround(opacity * 255);
+    mText_texture->set_alpha(mText_color.a);
 }
 
 std::string Text::remove_trailing_zeros(std::string s)

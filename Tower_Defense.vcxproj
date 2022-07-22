@@ -169,6 +169,7 @@
     <ClCompile Include="classes\Chameleon.cpp" />
     <ClCompile Include="classes\Clickable.cpp" />
     <ClCompile Include="classes\ConfigFile.cpp" />
+    <ClCompile Include="classes\TextParticle.cpp" />
     <ClCompile Include="classes\Vector.cpp" />
     <ClCompile Include="classes\Damage.cpp" />
     <ClCompile Include="classes\Defense.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="headers\Chameleon.h" />
     <ClInclude Include="headers\Clickable.h" />
     <ClInclude Include="headers\ConfigFile.h" />
+    <ClInclude Include="headers\TextParticle.h" />
     <ClInclude Include="headers\Vector.h" />
     <ClInclude Include="headers\Damage.h" />
     <ClInclude Include="headers\Defense.h" />
