@@ -7,28 +7,27 @@ StaticTargetTower::StaticTargetTower(const std::string& tower_name, const SDL_Po
 
 }
 
-void StaticTargetTower::create_shot(Enemy* enemy)
+void StaticTargetTower::create_shot(Enemy& enemy)
 {
-	new StaticTargetShot(this, enemy);
+    new StaticTargetShot(*this, &enemy);
 }
 
 void StaticTargetTower::on_tick()
 {
-	update_building_window();
-	Tower::on_tick();
+    Tower::on_tick();
 }
 
 void StaticTargetTower::update_building_window()
 {
-	Tower::update_building_window();
+    Tower::update_building_window();
 }
 
-void StaticTargetTower::set_stat_strings_for_upgrade_buttons(UpgradeButton* button)
+void StaticTargetTower::set_stat_strings_for_upgrade_buttons(UpgradeButton& button)
 {
-	Tower::set_stat_strings_for_upgrade_buttons(button);
+    Tower::set_stat_strings_for_upgrade_buttons(button);
 }
 
 bool StaticTargetTower::upgrade(const std::string& tower_upgrade_section)
 {
-	return Tower::upgrade(tower_upgrade_section);
+    return Tower::upgrade(tower_upgrade_section);
 }

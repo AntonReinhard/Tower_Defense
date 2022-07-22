@@ -1,233 +1,274 @@
 #include "Resources.h"
+#include "ConfigFile.h"
+
+#include <cmath>
 #include <algorithm>
+#include <tuple>
+#include <array>
+#include <ranges>
+#include <iostream>
 
-Resources::Resources() : mResources{ 0 }, mDisplay{ 0.0 }
-{
-	this->set_empty();
-	this->mLimit = nullptr;
-	this->set_display_zero();
+Resources::Resources() = default;
+
+Resources::~Resources() = default;
+
+// give name as "%sMain" to get goldMain, woodMain and so on
+void Resources::read_from_config(const std::string& section, const char* name, const char* limitName) {
+    char buf[255];
+
+    if (name != nullptr) {
+        for (auto i = 0; i < RESOURCES_TOTAL; ++i) {
+            const auto res = static_cast<RESOURCETYPES>(i);
+            sprintf(buf, name, Resources::to_string(res).c_str());
+            set_resource(res, gConfig_file->value_or_zero(section, buf));
+        }
+    }
+
+    if (limitName != nullptr) {
+        for (auto i = 0; i < RESOURCES_TOTAL; ++i) {
+            const auto res = static_cast<RESOURCETYPES>(i);
+            sprintf(buf, limitName, Resources::to_string(res).c_str());
+            set_limit(res, gConfig_file->value_or_zero(section, buf));
+        }
+    }
 }
 
-Resources::Resources(const float gold, const float wood, const float stone, const float iron, const float energy, const float water, const float food) : mResources { 0 }, mDisplay{ 0.0 }
+void Resources::set_resource(const RESOURCETYPES type, const double res)
 {
-	this->set_resources(gold, wood, stone, iron, energy, water, food);
-	this->mLimit = nullptr;
-	this->set_display_zero();
+    mResources[type].set(res);
 }
 
-Resources::Resources(Resources* resource, Resources* limit) : mResources{ 0 }, mDisplay{ 0.0 }
+double Resources::get_resource(const RESOURCETYPES type) const
 {
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		this->set_resource(RESOURCETYPES(i), resource->get_resource(RESOURCETYPES(i)));
-	}
-	if (limit == nullptr) this->mLimit = nullptr;
-	else {
-		this->mLimit = new Resources(limit);
-	}
-	this->set_display_zero();
+    return mResources[type].get();
 }
 
-Resources::~Resources()
+void Resources::set_limit(const RESOURCETYPES type, const double res)
 {
-	delete mLimit;
+    mResources[type].set_limit(res);
 }
 
-void Resources::set_resources(const float gold, const float wood, const float stone, const float iron, const float energy, const float water, const float food)
+double Resources::get_limit(const RESOURCETYPES type) const
 {
-	mResources[GOLD] = gold;
-	mResources[FOOD] = food;
-	mResources[WOOD] = wood;
-	mResources[STONE] = stone;
-	mResources[IRON] = iron;
-	mResources[WATER] = water;
-	mResources[ENERGY] = energy;
+    return mResources[type].get_limit();
 }
 
-void Resources::set_resource(const RESOURCETYPES type, const float res)
+int Resources::get_display(const RESOURCETYPES type) const
 {
-	this->mResources[type] = res;
-}
-
-float Resources::get_resource(const RESOURCETYPES type)
-{
-	return mResources[type];
-}
-
-float* Resources::get_resource_pointer(const RESOURCETYPES type)
-{
-	return &mResources[type];
+    return mResources[type].get_display();
 }
 
 void Resources::set_empty()
 {
-	for (auto& resource : mResources)
-	{
-		resource = 0;
-	}
+    for (auto& resource : mResources)
+    {
+        resource.set(0.);
+    }
 }
 
-bool Resources::is_empty()
+bool Resources::empty()
 {
-	for (auto resource : mResources)
-	{
-		if (resource != 0) return false;
-	}
-	return true;
+    for (auto resource : mResources)
+    {
+        if (resource.empty()) return false;
+    }
+    return true;
 }
 
-void Resources::add(const RESOURCETYPES type, const float res)
+//Returns true if the subtracting succeeded, false if there weren't enough resources
+bool Resources::sub(const Resources& cost)
 {
-	if (mLimit != nullptr) {
-		if (res + mResources[type] > mLimit->get_resource(type)) {
-			mResources[type] = mLimit->get_resource(type);
-			return;
-		}
-	}
-	mResources[type] += res;
+    if (!can_sub(cost)) {
+        return false;
+    }
+
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = mResources[i];
+        auto& c = cost.mResources[i];
+        res.sub(c);
+    }
+    return true;
 }
 
-bool Resources::sub(const RESOURCETYPES type, const float res)
+bool Resources::can_sub(const Resources& cost)
 {
-	if (mResources[type] - res < 0) {
-		return false;
-	}
-	mResources[type] -= res;
-	return true;
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = mResources[i];
+        auto& c = cost.mResources[i];
+        if (!res.can_sub(c)) {
+            return false;
+        }
+    }
+    return true;
 }
 
-//Returns true if the subtracting succeeded, false if there wasn't enough resources
-bool Resources::sub(Resources *cost)
+void Resources::add(const Resources& income)
 {
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		if (mResources[i] - cost->get_resource(RESOURCETYPES(i)) < 0) {
-			return false;
-		}
-	}
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		mResources[i] -= cost->get_resource(RESOURCETYPES(i));
-	}
-	return true;
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = mResources[i];
+        auto& in = income.mResources[i];
+
+        res.add(in);
+    }
 }
 
-bool Resources::sub_possible(Resources* cost)
+Resources Resources::operator/(const double &d) const
 {
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		if (mResources[i] - cost->get_resource(RESOURCETYPES(i)) < 0) {
-			return false;
-		}
-	}
-	return true;
+    Resources r;
+
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = r.mResources[i];
+        res.set(mResources[i].get() / d);
+    }
+    return r;
 }
 
-
-void Resources::add(Resources *income)
+void Resources::transfer(Resources& source)
 {
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		this->add(RESOURCETYPES(i), income->get_resource(RESOURCETYPES(i)));
-	}
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = mResources[i];
+        auto& in = source.mResources[i];
+
+        res.transfer(in);
+    }
 }
 
-Resources Resources::operator/(const float &d)
+void Resources::transfer(Resources& source, const Production& inout)
 {
-	Resources r;
+    for (auto i = 0; i < mResources.size(); i++) {
+        auto& res = mResources[i];
+        auto& in = source.mResources[i];
+        const auto& prod = inout[i];
 
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		r.set_resource(RESOURCETYPES(i), this->get_resource(RESOURCETYPES(i)) / d);
-	}
-	return r;
+        res.transfer(in, prod);
+    }
 }
 
-void Resources::set_limit(Resources* limit)
+void Resources::transfer(const RESOURCETYPES type, Resources& r)
 {
-	delete mLimit;
-	this->mLimit = new Resources(limit);
+    auto i = static_cast<int>(type);
+    return mResources[i].transfer(r.mResources[i]);
 }
 
-Resources* Resources::get_limit() const
+std::string Resources::to_string(const RESOURCETYPES type)
 {
-	return mLimit;
+    switch (type) {
+    case GOLD:
+        return "gold";
+    case WOOD:
+        return "wood";
+    case FOOD:
+        return "food";
+    case IRON:
+        return "iron";
+    case STONE:
+        return "stone";
+    case WATER:
+        return "water";
+    case ENERGY:
+        return "energy";
+    default:
+        return "unknown resource";
+    }
 }
 
-
-bool Resources::transfer(Resources *source)
+std::string Resources::get_name(RESOURCETYPES type)
 {
-	if (this->mLimit == nullptr) {
-		this->add(source);
-		source->set_empty();
-		return true;
-	}
-
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) 
-	{
-		auto adding = mLimit->get_resource(RESOURCETYPES(i)) - mResources[RESOURCETYPES(i)];
-		//skip if over full already
-		if (adding <= 0) continue;
-		adding = std::min(adding, source->get_resource(RESOURCETYPES(i)));
-		this->add(RESOURCETYPES(i), source->get_resource(RESOURCETYPES(i)));
-		source->sub(RESOURCETYPES(i), adding);
-	}
-
-	return source->is_empty();
+    switch (type) {
+    case GOLD:
+        return "Gold";
+    case WOOD:
+        return "Wood";
+    case FOOD:
+        return "Food";
+    case IRON:
+        return "Iron";
+    case STONE:
+        return "Stone";
+    case WATER:
+        return "Water";
+    case ENERGY:
+        return "Energy";
+    default:
+        return "Unknown Resource";
+    }
 }
 
-bool Resources::transfer(const RESOURCETYPES type, float *r)
+Resources::Res::Res() 
+    : mRes(0)
+    , mLimit(0)
+    , mPrev_res(0)
+    , mLast_change(std::chrono::system_clock::now())
+{}
+
+void Resources::Res::set(const double r)
 {
-	if (this->mLimit == nullptr)
-	{
-		this->add(type, *r);
-		*r = 0;
-		return true;
-	}
-
-	auto adding = mLimit->get_resource(type) - mResources[type];
-	if (adding > 0)
-	{
-		adding = std::min(adding, *r);
-		this->add(type, *r);
-		*r -= adding;
-	}
-
-	return *r == 0;
+    if (std::abs(mRes - r) > EPSILON) {
+        mPrev_res = mRes;
+        mRes = r;
+        mLast_change = std::chrono::system_clock::now();
+    }
 }
 
-Resources Resources::get_display_resources()
+double Resources::Res::get() const
 {
-	Resources res;
-
-	for (auto i = 0; i < RESOURCES_TOTAL; i++) {
-		this->mDisplay[i] += float(mResources[i] - mDisplay[i]) / 100.f;
-		if (mResources[i] - mDisplay[i] < 1.f) mDisplay[i] = float(mResources[i]);
-		res.set_resource(RESOURCETYPES(i), int(mDisplay[i]));
-	}
-	return res;
+    return mRes;
 }
 
-std::string Resources::get_name(const RESOURCETYPES type)
+void Resources::Res::set_limit(const double limit)
 {
-	//TODO: locale stuff monkaS
-	switch (type) {
-	case GOLD:
-		return "Gold";
-	case WOOD:
-		return "Wood";
-	case FOOD:
-		return "Food";
-	case IRON:
-		return "Iron";
-	case STONE:
-		return "Stone";
-	case WATER:
-		return "Water";
-	case ENERGY:
-		return "Energy";
-	default:
-		return "Unknown Resource";
-	}
+    mLimit = limit;
+    if (mRes > mLimit) {
+        set(mLimit);
+    }
 }
 
-void Resources::set_display_zero()
+double Resources::Res::get_limit() const
 {
-	for (auto i = 0; i < RESOURCETYPES::RESOURCES_TOTAL; i++) {
-		this->mDisplay[RESOURCETYPES(i)] = 0;
-	}
+    return mLimit;
+}
+
+int Resources::Res::get_display() const
+{
+    return std::lround(mRes + std::pow(1.05, static_cast<double>((std::chrono::system_clock::now() - mLast_change).count() * -0.00001)) * (mPrev_res - mRes));
+}
+
+bool Resources::Res::empty() const
+{
+    return std::abs(mRes) < EPSILON;
+}
+
+void Resources::Res::add(const Res& r)
+{
+    set(std::min(get() + r.get(), mLimit));
+}
+
+bool Resources::Res::can_sub(const Res& r) const
+{
+    return get() - r.get() >= 0;
+}
+
+void Resources::Res::sub(const Res& r)
+{
+    set(std::max(get() - r.get(), 0.));
+}
+
+void Resources::Res::transfer(Res& source)
+{
+    double transfer_amount = std::min(get() + source.get(), mLimit) - get();
+
+    set(get() + transfer_amount);
+    source.set(source.get() - transfer_amount);
+}
+
+void Resources::Res::transfer(Res& source, const PRODUCTIONSTATE inout)
+{
+    switch (inout) {
+    case PRODUCING:
+        transfer(source);
+        break;
+    case CONSUMING:
+        source.transfer(*this);
+        break;
+    }
 }

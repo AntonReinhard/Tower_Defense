@@ -6,11 +6,11 @@ class Enemy;
 class OnHitShot final : public Shot
 {
 public:
-	OnHitShot(Tower* tower, Enemy* enemy);
+    OnHitShot(const Tower& tower, Enemy* enemy);
 
-	void on_tick() override;
+    void on_tick() override;
 
-	bool damaged_an_enemy() override;
+    bool damaged_an_enemy() override;
 
-	bool follow();
+    bool follow();
 };

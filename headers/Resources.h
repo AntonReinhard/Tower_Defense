@@ -1,75 +1,110 @@
 #pragma once
-#include <string>
-
 #include "Enums.h"
+#include "Production.h"
+
+#include <string>
+#include <memory>
+#include <optional>
+#include <chrono>
+#include <array>
+#include <limits>
 
 class Resources
 {
 public:
-	Resources();
-	Resources(float gold, float wood, float stone, float iron, float energy, float water, float food);
-	explicit Resources(Resources* resource, Resources* limit = nullptr);
+    Resources();
 
-	~Resources();
+    ~Resources();
+    
+    void read_from_config(const std::string& section, const char* name = nullptr, const char* limitName = nullptr);
 
-	//set and get all the different values
-	void set_resources(float gold, float wood, float stone, float iron, float energy, float water, float food);
-	
-	//set and get individual resource
-	void set_resource(RESOURCETYPES type, float res);
-	float get_resource(RESOURCETYPES type);
-	float* get_resource_pointer(RESOURCETYPES type);
+    //set and get individual resource
+    void set_resource(RESOURCETYPES type, double res);
+    double get_resource(RESOURCETYPES type) const;
 
-	//sets all resources to 0
-	void set_empty();
-	//checks if all resources are 0
-	bool is_empty();
+    void set_limit(RESOURCETYPES type, double limit);
+    double get_limit(RESOURCETYPES type) const;
 
-	//add and sub individual resources, checking for bounds (underflow, overflow)
-	//on overflow resource is set to the limit
-	//on underflow nothing is done and false returned
-	void add(RESOURCETYPES type, float res);
-	bool sub(RESOURCETYPES type, float res);
+    //returns a Resources object that is ticking behind the actual resources
+    //to make it nice to display
+    int get_display(RESOURCETYPES type) const;
 
-	//subtracts cost resources if possible, returns true on success
-	//cost is unchanged
-	//can't be const cause for some reason operator[] of vector is not const
-	bool sub(Resources *cost);
-	//if it is possible to subtract the resources return true, otherwise false
-	bool sub_possible(Resources *cost);
+    //sets all resources to 0
+    void set_empty();
+    //checks if all resources are 0
+    bool empty();
 
-	//adds resources, checking for limits
-	void add(Resources *income);
+    //subtracts cost resources if possible, returns true on success
+    //cost is unchanged
+    //can't be const cause for some reason operator[] of vector is not const
+    bool sub(const Resources& cost);
+    //if it is possible to subtract the resources return true, otherwise false
+    bool can_sub(const Resources& cost);
 
-	Resources operator/(const float &d);
-	//sets new limit, current resources will not change
-	void set_limit(Resources* limit);
-	Resources* get_limit() const;
+    //adds resources, checking for limits
+    void add(const Resources& income);
 
-	//transfers all the resources it can into this object taking into account the limit
-	//the source is emptied during this
-	//returns true if the source is empty afterwards
-	//false otherwise
-	bool transfer(Resources *source);
+    Resources operator/(const double &d) const;
 
-	//transfers one resource type
-	//returns true if the source is empty afterwards
-	//false otherwise
-	bool transfer(RESOURCETYPES type, float *r);
+    //transfers all the resources it can into this object taking into account the limit
+    //the source is emptied during this
+    //returns true if the source is empty afterwards
+    //false otherwise
+    void transfer(Resources& source);
 
-	//returns a Resources object that is ticking behind the actual resources
-	//to make it nice to display
-	Resources get_display_resources();
+    //transfers all resources according to the production given
+    void transfer(Resources& source, const Production& inout);
 
-	//returns a string literal containing the name of the resource
-	static std::string get_name(RESOURCETYPES type);
+    //transfers one resource type
+    //returns true if the source is empty afterwards
+    //false otherwise
+    void transfer(RESOURCETYPES type, Resources &r);
+
+    //returns a string literal containing the name of the resource as written in config etc
+    static std::string to_string(RESOURCETYPES type);
+
+    //returns a string literal containing the name of the resource for display to the player
+    static std::string get_name(RESOURCETYPES type);
+
+    class Res {
+    public:
+        Res();
+
+        // sets the resource to the given value
+        void set(double res);
+        double get() const;
+
+        void set_limit(double res);
+        double get_limit() const;
+
+        int get_display() const;
+
+        bool empty() const;
+
+        void add(const Res& r);
+        bool can_sub(const Res& r) const;
+        void sub(const Res& r);
+        
+        void transfer(Res& source);
+        void transfer(Res& source, PRODUCTIONSTATE inout);
+
+    private:
+
+        // currently stored resources
+        double mRes;
+
+        // the limit to the resources
+        double mLimit;
+
+        // the previous resources
+        double mPrev_res;
+
+        //the last time point this was changed at
+        std::chrono::time_point<std::chrono::system_clock> mLast_change;
+    };
 
 private:
-	float mResources[RESOURCES_TOTAL];
-	float mDisplay[RESOURCES_TOTAL];
 
-	void set_display_zero();
-
-	//if there should be a limit to how many resources there can be
-	Resources* mLimit;
+    // array of the different resource types
+    std::array<Res, RESOURCES_TOTAL> mResources;
 };

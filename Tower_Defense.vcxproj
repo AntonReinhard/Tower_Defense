@@ -31,7 +31,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -82,9 +82,9 @@
     <LibraryPath>E:\Informatik\Programmieren\SDL2\SDL2-2.0.5\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_image-2.0.1\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_ttf-2.0.14\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>E:\Informatik\Programmieren\SDL2\SDL2_ttf-2.0.14\include;E:\Informatik\Programmieren\SDL2\SDL2-2.0.5\include;C:\vs_dev_lib\SDL2_ttf-2.0.14\include;C:\vs_dev_lib\SDL2_image-2.0.3\include;C:\vs_dev_lib\SDL2-2.0.8\include;C:\Users\Anton\Source\Repos\Tower_Defense\headers;F:\Programmieren\C++\Spiele\Tower Defense\Code\Tower_Defense\headers;F:\Programmieren\SDL2\SDL2-2.0.5\include;$(IncludePath);E:\Informatik\Programmieren\SDL2\SDL2_image-2.0.1\include;E:\Informatik\Programmieren\C++\Spiele\Tower Defense\Tower_Defense\headers;C:\vs_dev_lib\protobuf\include</IncludePath>
-    <LibraryPath>E:\Informatik\Programmieren\SDL2\SDL2-2.0.5\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_ttf-2.0.14\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_image-2.0.1\lib\x86;F:\Programmieren\SDL2\SDL2-2.0.5\lib\x86;C:\vs_dev_lib\SDL2_ttf-2.0.14\lib\x86;C:\vs_dev_lib\SDL2_image-2.0.3\lib\x86;C:\vs_dev_lib\SDL2-2.0.8\lib\x86;C:\vs_dev_lib\protobuf\lib;$(LibraryPath)</LibraryPath>
-    <TargetExt>.exe</TargetExt>
+    <IncludePath>E:\Informatik\Programmieren\SDL2\SDL2_ttf-2.0.14\include;E:\Informatik\Programmieren\SDL2\SDL2-2.0.5\include;C:\vs_dev_lib\SDL2_ttf-2.0.14\include;C:\vs_dev_lib\SDL2_image-2.0.3\include;C:\vs_dev_lib\SDL2-2.0.8\include;C:\Users\Anton\Source\Repos\Tower_Defense\headers;F:\Programmieren\C++\Spiele\Tower Defense\Code\Tower_Defense\headers;F:\Programmieren\SDL2\SDL2-2.0.5\include;$(IncludePath);E:\Informatik\Programmieren\SDL2\SDL2_image-2.0.1\include;E:\Informatik\Programmieren\C++\Spiele\Tower Defense\Tower_Defense\headers;C:\vs_dev_lib\protobuf\lib</IncludePath>
+    <LibraryPath>E:\Informatik\Programmieren\SDL2\SDL2-2.0.5\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_ttf-2.0.14\lib\x86;E:\Informatik\Programmieren\SDL2\SDL2_image-2.0.1\lib\x86;F:\Programmieren\SDL2\SDL2-2.0.5\lib\x86;C:\vs_dev_lib\SDL2_ttf-2.0.14\lib\x86;C:\vs_dev_lib\SDL2_image-2.0.3\lib\x86;C:\vs_dev_lib\SDL2-2.0.8\lib\x86;$(LibraryPath)</LibraryPath>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -95,7 +95,7 @@
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -125,7 +125,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>F:\Programmieren\C++\Spiele\Tower Defense\Code\Tower_Defense\headers;C:\Users\Anton\Source\Repos\Tower_Defense\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -283,7 +282,6 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="config\game.cfg" />
-    <None Include="level\Level1.FMP" />
     <None Include="proto\map.proto" />
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\lazy.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="level\Level1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

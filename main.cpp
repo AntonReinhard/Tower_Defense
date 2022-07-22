@@ -15,24 +15,22 @@
 
 int main( int argc, char* argv[] )
 {
-	//TODO: Needs error handling
-	gConfig_file = new ConfigFile("config/game.cfg");
-	if (!init_graphics())
-	{
-		printf("Failed to initialize Graphics!\n");
-	}
-	else
-	{
-		//initialize randomness
-		srand(static_cast<unsigned>(time(nullptr)));
+    //TODO: Needs error handling
+    gConfig_file = new ConfigFile("config/game.cfg");
+    if (!init_graphics())
+    {
+        printf("Failed to initialize Graphics!\n");
+    }
+    else
+    {
+        //initialize randomness
+        srand(static_cast<unsigned>(time(nullptr)));
 
-		auto game = new Game();
+        Game game;
 
-		game->start_game();
-
-		delete game;
-	}
-	
-	SDL_Delay(1000);
-	return 0;
+        game.start_game();
+    }
+    
+    SDL_Delay(1000);
+    return 0;
 }

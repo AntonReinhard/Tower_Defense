@@ -14,50 +14,60 @@ class Game;
 class Level
 {
 public:
-	explicit Level(std::string level_number, Game* game);
-	~Level();
+    Level(std::string level_number, Game* game);
+    ~Level();
 
-	//at the moment: update the first wave in the vector, if this wave is dead spawn the next wave
-	void on_tick();
+    //at the moment: update the first wave in the vector, if this wave is dead spawn the next wave
+    void on_tick();
 
-	bool is_dead() const;
-	bool no_lives() const;
+    bool is_dead() const;
+    bool no_lives() const;
 
-	std::vector<Wave*> get_waves();
-	int get_lives() const;
-	Resources* get_resources() const;
-	std::string get_level_number() const;
+    std::vector<Wave*> get_waves();
+    int get_lives() const;
+    const Resources& get_resources() const&;
+    Resources& get_resources() &;
+    std::string get_level_number() const;
 
-	void set_resources(const Resources *resources);
-	void set_lives(int lives);
-	TILETYPES get_map_matrix(int x, int y) const;
-	void set_map_matrix(int x, int y, TILETYPES type) const;
+    void set_resources(const Resources *resources);
+    void set_lives(int lives);
+    TILETYPES get_map_matrix(int x, int y) const;
+    void set_map_matrix(int x, int y, TILETYPES type) const;
 
-	void set_building_matrix(int x, int y, Building* building, int x_size = 1, int y_size = 1) const;
-	Building* get_building_matrix(int x, int y) const;
+    void set_building_matrix(int x, int y, Building* building, int x_size = 1, int y_size = 1) const;
+    Building* get_building_matrix(int x, int y) const;
 
-	Warehouse* get_main_building() const;
-	void set_main_building(Warehouse *main_building);
+    Warehouse* get_main_building() const;
+    void set_main_building(Warehouse *main_building);
 
-	Menu* get_menu() const;
-	
+    Menu* get_menu() const;
+    Map* get_map() const;
+
+    std::vector<std::string>& get_available_buildings();
+    std::vector<std::string>& get_available_upgrades();
+    
 private:
-	std::string mLevel_number;
+    std::string mLevel_number;
 
-	int mWave_number; //next wave to create
-	
-	std::vector<Wave*> mWaves;
-	int mLives;
-	Resources mStart_resources;
-	Building*** mMap_buildings;
+    int mWave_number; //next wave to create
+    
+    std::vector<Wave*> mWaves;
+    int mLives;
+    Resources mStart_resources;
+    Building*** mMap_buildings;
 
-	Warehouse* mMain_building;
+    Warehouse* mMain_building;
 
-	Map* mMap;
+    Map* mMap;
 
-	bool mDeleting;
+    bool mDeleting;
 
-	Game* mGame;
+    Game* mGame;
 
-	Menu* mMenu;
+    Menu* mMenu;
+
+    //available buildings in this level
+    std::vector<std::string> mAvailable_buildings;
+    //available building upgrades in this level
+    std::vector<std::string> mAvailable_upgrades;
 };

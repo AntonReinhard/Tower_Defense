@@ -5,16 +5,16 @@
 class RenderableHandler
 {
 public:
-	RenderableHandler();
-	~RenderableHandler();
+    RenderableHandler();
+    ~RenderableHandler();
 
-	void add_renderable(Renderable* r);
-	void del_renderable(Renderable* r);
+    void add_renderable(Renderable* r);
+    void del_renderable(Renderable* r);
 
-	void render();
+    void render();
 
 private:
-	std::vector<Renderable*> mRenderables;
+    std::vector<Renderable*> mRenderables;
 };
 
 extern RenderableHandler* gRenderables_handler;

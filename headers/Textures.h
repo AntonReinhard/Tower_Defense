@@ -7,17 +7,17 @@
 class Textures
 {
 public:
-	~Textures();
+    ~Textures();
 
-	//retrieving a texture
-	//will load the texture if it's not yet saved
-	LTexture* get_texture(std::string path);
+    //retrieving a texture
+    //will load the texture if it's not yet saved
+    LTexture* get_texture(std::string path);
 
-	//deletes a loaded texture with a given name
-	bool del_texture(const std::string& path);
+    //deletes a loaded texture with a given name
+    bool del_texture(const std::string& path);
 
 private:
-	//stores the unit name strings and the associated sprite
-	std::map<std::string, LTexture*> mContent;
+    //stores the unit name strings and the associated sprite
+    std::map<std::string, LTexture*> mContent;
 };
 

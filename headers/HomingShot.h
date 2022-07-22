@@ -4,21 +4,21 @@
 class Enemy;
 
 class HomingShot : 
-	public Shot
+    public Shot
 {
 public:
-	HomingShot(Tower* tower, Enemy *enemy_to_shoot);
+    HomingShot(const Tower& tower, Enemy* enemy_to_shoot);
 
-	Enemy *get_enemy_to_shoot() const;
+    Enemy *get_enemy_to_shoot() const;
 
-	void on_tick() override;
+    void on_tick() override;
 
-	bool follow(); //shot follows an enemy, returns true when hit
+    bool follow(); //shot follows an enemy, returns true when hit
 
-	void set_enemy_to_follow_is_dead(bool v);
+    void set_enemy_to_follow_is_dead(bool v);
 
 private:
-	Enemy* mEnemy_to_shoot;
+    Enemy* mEnemy_to_shoot;
 
-	bool mEnemy_to_follow_is_dead;
+    bool mEnemy_to_follow_is_dead;
 };

@@ -460,9 +460,6 @@
     <None Include="config\game.cfg">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="level\Level1.FMP">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="ClassDiagram.cd" />
     <None Include="proto\map.proto">
       <Filter>protobuf</Filter>
@@ -534,10 +531,5 @@
     <Font Include="resources\lazy.ttf">
       <Filter>Resource Files</Filter>
     </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="level\Level1.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>
