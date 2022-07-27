@@ -70,6 +70,8 @@ Level::Level(std::string level_number, Game* game)
     warehouse_coord.y = TILE_HEIGHT * gConfig_file->value(level_section, "main_building_y");
 
     set_main_building(new Warehouse(gConfig_file->value(level_section, "main_building_name"), warehouse_coord, this, BUILDINGS, BUILDINGS));
+
+    new Shadow(gConfig_file->value(level_section, "shadow"));
 }
 
 Level::~Level()

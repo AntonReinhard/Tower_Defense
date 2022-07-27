@@ -1,7 +1,7 @@
 #pragma once
 #include "Clickable.h"
 #include "Renderable.h"
-#include "Enums.h"
+#include "Constants.h"
 #include "Text.h"
 
 #include <SDL.h>

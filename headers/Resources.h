@@ -1,6 +1,8 @@
 #pragma once
-#include "Enums.h"
+#include "Constants.h"
 #include "Production.h"
+
+#include <SDL.h>
 
 #include <string>
 #include <memory>
@@ -21,6 +23,8 @@ public:
     //set and get individual resource
     void set_resource(RESOURCETYPES type, double res);
     double get_resource(RESOURCETYPES type) const;
+    int get_resource_int(RESOURCETYPES type) const;
+    std::string get_resource_string(RESOURCETYPES type) const;
 
     void set_limit(RESOURCETYPES type, double limit);
     double get_limit(RESOURCETYPES type) const;
@@ -65,6 +69,9 @@ public:
 
     //returns a string literal containing the name of the resource for display to the player
     static std::string get_name(RESOURCETYPES type);
+
+    //returns a color code representing this color
+    static SDL_Color get_color(RESOURCETYPES type);
 
     class Res {
     public:

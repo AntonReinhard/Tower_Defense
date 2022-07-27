@@ -24,17 +24,13 @@ std::shared_ptr<Window> IndustrialBuilding::create_window()
 
     //add production text in the building window
     const SDL_Color text_color = { 0,0,0,0 };
-    SDL_Rect dest{ 0, 0, 200, 40 };
+    SDL_Rect dest{ 260, 40, 0, 0 };
     mBuilding_window->add_text_to_window("        Production", dest, WINDOWCONTENT, text_color);
 
     for (auto i = 0; i < mProduction_values.size(); ++i)
     {
         dest.y += 20;
-        mBuilding_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), dest, WINDOWCONTENT, text_color);
-
-        dest.x += 60;
         mProduction_values[i] = mBuilding_window->add_text_to_window(std::to_string(mProduce.get_display(RESOURCETYPES(i))), dest, WINDOWCONTENT, text_color);
-        dest.x -= 60;
     }
 
     return mBuilding_window;

@@ -61,12 +61,17 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
         rect.x += 10;
         for (auto i = 0; i < RESOURCES_TOTAL; ++i)
         {
+            auto res = static_cast<RESOURCETYPES>(i);
             rect.y += 20;
-            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(storage_limit.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+            menu_item_window->add_text_to_window(storage_limit.get_resource_string(res), rect, WINDOWCONTENT, text_color);
             rect.x += 40;
-            menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
+            menu_item_window->add_text_to_window(Resources::get_name(res), rect, WINDOWS, Resources::get_color(res));
             rect.x += 70;
-            menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mConstruction_costs.get_resource(RESOURCETYPES(i))))+ "(" +Text::remove_trailing_zeros(std::to_string(maintenance.get_resource(RESOURCETYPES(i)))) + ")", rect, WINDOWCONTENT, text_color);
+            menu_item_window->add_text_to_window(
+                mConstruction_costs.get_resource_string(res) +  "(" + maintenance.get_resource_string(res) + ")", 
+                rect, 
+                WINDOWCONTENT, 
+                mConstruction_costs.get_resource(res) > 0 || maintenance.get_resource(res) > 0 ? COLOR_NEGATIVE : COLOR_NEUTRAL);
             rect.x -= 110;
         }
         rect = { 220, 40, 0, 0 };
@@ -126,10 +131,11 @@ std::shared_ptr<Window> BuildingMenuItem::create_window()
 
             for (auto i = 0; i < RESOURCES_TOTAL; ++i)
             {
+                auto res = static_cast<RESOURCETYPES>(i);
                 rect.y += 20;
-                menu_item_window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
+                menu_item_window->add_text_to_window(Resources::get_name(res), rect, WINDOWS, Resources::get_color(res));
                 rect.x += 60;
-                menu_item_window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(produce.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+                menu_item_window->add_text_to_window(produce.get_resource_string(res), rect, WINDOWCONTENT, produce.get_resource(res) > 0 ? COLOR_POSITIVE : COLOR_NEUTRAL);
                 rect.x -= 60;
             }
         }

@@ -2,7 +2,7 @@
 #include "LTexture.h"
 #include "Renderable.h"
 #include "Vector.h"
-#include "Enums.h"
+#include "Constants.h"
 
 class Text 
     : public Renderable
@@ -12,6 +12,8 @@ public:
     ~Text();
     
     void set_text(const std::string& text);
+
+    void set_opacity(double opacity);
 
     void render() override;
 

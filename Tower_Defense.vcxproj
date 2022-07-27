@@ -27,26 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -156,6 +156,7 @@
     <ClCompile Include="classes\MainMenuTab.cpp" />
     <ClCompile Include="classes\OnHitShot.cpp" />
     <ClCompile Include="classes\OnHitTower.cpp" />
+    <ClCompile Include="classes\Shadow.cpp" />
     <ClCompile Include="classes\StaticTargetShot.cpp" />
     <ClCompile Include="classes\StaticTargetTower.cpp" />
     <ClCompile Include="classes\BigUpgrade.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="classes\Chameleon.cpp" />
     <ClCompile Include="classes\Clickable.cpp" />
     <ClCompile Include="classes\ConfigFile.cpp" />
+    <ClCompile Include="classes\TextParticle.cpp" />
     <ClCompile Include="classes\Vector.cpp" />
     <ClCompile Include="classes\Damage.cpp" />
     <ClCompile Include="classes\Defense.cpp" />
@@ -222,6 +224,7 @@
     <ClInclude Include="headers\MainMenuTab.h" />
     <ClInclude Include="headers\OnHitShot.h" />
     <ClInclude Include="headers\OnHitTower.h" />
+    <ClInclude Include="headers\Shadow.h" />
     <ClInclude Include="headers\StaticTargetShot.h" />
     <ClInclude Include="headers\StaticTargetTower.h" />
     <ClInclude Include="headers\BigUpgrade.h" />
@@ -234,13 +237,14 @@
     <ClInclude Include="headers\Chameleon.h" />
     <ClInclude Include="headers\Clickable.h" />
     <ClInclude Include="headers\ConfigFile.h" />
+    <ClInclude Include="headers\TextParticle.h" />
     <ClInclude Include="headers\Vector.h" />
     <ClInclude Include="headers\Damage.h" />
     <ClInclude Include="headers\Defense.h" />
     <ClInclude Include="headers\DemolishTool.h" />
     <ClInclude Include="headers\DemolishToolMouseItem.h" />
     <ClInclude Include="headers\Enemy.h" />
-    <ClInclude Include="headers\Enums.h" />
+    <ClInclude Include="headers\Constants.h" />
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\HomingShot.h" />
     <ClInclude Include="headers\HomingTower.h" />
