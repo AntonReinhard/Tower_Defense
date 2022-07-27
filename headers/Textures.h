@@ -1,7 +1,7 @@
 #pragma once
-#include <map>
 #include "LTexture.h"
 
+#include <map>
 
 //A class to handle all the textures so they don't get loaded more than once
 class Textures
@@ -20,4 +20,3 @@ private:
     //stores the unit name strings and the associated sprite
     std::map<std::string, LTexture*> mContent;
 };
-

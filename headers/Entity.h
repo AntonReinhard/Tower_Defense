@@ -1,6 +1,6 @@
 #pragma once
 #include "Renderable.h"
-#include "Enums.h"
+#include "Constants.h"
 
 class Entity :
     public Renderable

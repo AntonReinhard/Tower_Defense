@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include "Enemy.h"
 #include "ConfigFile.h"
 #include "SDL_setup.h"
@@ -7,7 +6,18 @@
 #include "Particles.h"
 #include "HomingShot.h"
 #include "Menu.h"
+#include "TextParticle.h"
+
 #include <iostream>
+#include <cstdlib>
+
+namespace {
+    double random(double lower, double upper) {
+        double ret = static_cast<double>(std::abs(std::rand())) / RAND_MAX;
+
+        return ret * (upper - lower) + lower;
+    }
+}
 
 //needs the level name for getting the movement checkpoints from the config file
 Enemy::Enemy(const std::string& monster_name, const int way, Level* level, const LAYERS render_layer)
@@ -131,7 +141,6 @@ void Enemy::update_move_direction(Vector old_position)
     mMove_direction / mMove_direction.abs();
 }
 
-
 void Enemy::got_through()
 {
     //kill the unit
@@ -155,8 +164,23 @@ bool Enemy::take_damage(const Damage& dmg)
     // TODO: return leftover damage in case of death?
     if(mDefense->take_damage(dmg) && !this->is_dead())
     {
-        mDead = true;
+        // only get resources when dying through damage
         mLevel->get_resources().add(mLoot_resources);
+
+        // create loot particles
+        for (int i = 0; i < RESOURCES_TOTAL; ++i) {
+            auto res = static_cast<RESOURCETYPES>(i);
+
+            if (mLoot_resources.get_resource(res) != 0) {
+                std::string text = std::string("+") + mLoot_resources.get_resource_string(res) + " " + mLoot_resources.get_name(res);
+                Vector pos;
+                pos.x = mPosition.x + random(-5, 5);
+                pos.y = mPosition.y + random(-5, 5);
+                new TextParticle(text, Resources::get_color(res), pos);
+            }
+        }
+
+        mDead = true;
         this->on_death();
         return true;
     }

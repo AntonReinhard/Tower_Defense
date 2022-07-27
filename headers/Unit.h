@@ -3,7 +3,7 @@
 #include "LTexture.h"
 #include "Entity.h"
 #include "Vector.h"
-#include "Enums.h"
+#include "Constants.h"
 #include "Clickable.h"
 #include "Window.h"
 

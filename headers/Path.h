@@ -1,7 +1,7 @@
 #pragma once
 #include "Building.h"
 #include "Menu.h"
-#include "Enums.h"
+#include "Constants.h"
 
 class Path final
     : public Building

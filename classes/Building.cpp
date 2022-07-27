@@ -262,11 +262,6 @@ std::shared_ptr<Window> Building::create_window()
     mButton_offset.y = 20;
     const SDL_Color text_color = { 0, 0, 0 ,0 };
     SDL_Rect rect{ 1280, 584, 600, 220 };
-    //window for the warehouse is at a different position, than the other buildingwindows
-    if (get_name() != "Warehouse") //text for non-Warehouse buildings is at different position
-    {
-        //rect.x += rect.w - 200;
-    }
 
     auto window = std::make_shared<Window>(rect, WINDOWS, WINDOWS);
 
@@ -282,13 +277,14 @@ std::shared_ptr<Window> Building::create_window()
     rect.x += 10;
     for (auto i = 0; i < RESOURCES_TOTAL; ++i)
     {
+        auto res = static_cast<RESOURCETYPES>(i);
         rect.y += 20;
-        mStorage_values[i] = window->add_text_to_window(std::to_string(mCurrent_resources.get_display(RESOURCETYPES(i)))
-            + "/" + std::to_string(std::lround(mCurrent_resources.get_limit(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+        mStorage_values[i] = window->add_text_to_window(std::to_string(mCurrent_resources.get_display(res))
+            + "/" + std::to_string(std::lround(mCurrent_resources.get_limit(res))), rect, WINDOWCONTENT, text_color);
         rect.x += 95;
-        mMaintenance_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(RESOURCETYPES(i)))), rect, WINDOWCONTENT, text_color);
+        mMaintenance_values[i] = window->add_text_to_window(Text::remove_trailing_zeros(std::to_string(mMaintenance.get_resource(res))), rect, WINDOWCONTENT, text_color);
         rect.x += 30;
-        window->add_text_to_window(Resources::get_name(RESOURCETYPES(i)), rect, WINDOWS, text_color);
+        window->add_text_to_window(Resources::get_name(res), rect, WINDOWS, Resources::get_color(res));
         rect.x -= 125;
     }
 
@@ -351,7 +347,7 @@ void Building::add_resources(const Resources& r)
 
 void Building::transfer_resources(Resources& r, Production& production, const bool reverse)
 {
-    if (!reverse) {
+    if (reverse) {
         mCurrent_resources.transfer(r, production);
     }
     else {

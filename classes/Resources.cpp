@@ -7,6 +7,7 @@
 #include <array>
 #include <ranges>
 #include <iostream>
+#include <string>
 
 Resources::Resources() = default;
 
@@ -41,6 +42,16 @@ void Resources::set_resource(const RESOURCETYPES type, const double res)
 double Resources::get_resource(const RESOURCETYPES type) const
 {
     return mResources[type].get();
+}
+
+int Resources::get_resource_int(RESOURCETYPES type) const
+{
+    return std::lround(mResources[type].get());
+}
+
+std::string Resources::get_resource_string(RESOURCETYPES type) const
+{
+    return std::to_string(get_resource_int(type));
 }
 
 void Resources::set_limit(const RESOURCETYPES type, const double res)
@@ -191,6 +202,28 @@ std::string Resources::get_name(RESOURCETYPES type)
         return "Energy";
     default:
         return "Unknown Resource";
+    }
+}
+
+SDL_Color Resources::get_color(RESOURCETYPES type)
+{
+    switch (type) {
+    case GOLD:
+        return { 255, 215, 0 };
+    case WOOD:
+        return { 115, 61, 4};
+    case FOOD:
+        return { 181, 108, 13};
+    case IRON:
+        return {213, 211, 209};
+    case STONE:
+        return {57, 53, 47};
+    case WATER:
+        return {14, 40, 128};
+    case ENERGY:
+        return {225, 230, 49};
+    default:
+        return { 255, 255, 255 };
     }
 }
 

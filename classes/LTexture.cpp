@@ -1,5 +1,7 @@
 #include "LTexture.h"
 #include "SDL_setup.h"
+
+#include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
@@ -136,6 +138,8 @@ bool LTexture::load_from_rendered_text(const std::string& texture_text, const SD
             //Get image dimensions
             mWidth = text_surface->w;
             mHeight = text_surface->h;
+
+            SDL_SetTextureBlendMode(mTexture, SDL_BLENDMODE_BLEND);
         }
 
         //Get rid of old surface
